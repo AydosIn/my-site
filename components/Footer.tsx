@@ -2,16 +2,35 @@ import { site } from "@data/site";
 
 export function Footer() {
   return (
-    <footer className="mt-14 border-t border-neutral-200">
-      <div className="mx-auto max-w-3xl px-4 py-6 text-sm text-gray-600">
-        <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-          <div>© {new Date().getFullYear()} {site.ownerName}</div>
-          <div className="flex gap-4">
-            <a href="/achievements" className="no-underline">Achievements</a>
-            <a href="/books" className="no-underline">Books</a>
-            <a href="/reflections" className="no-underline">Reflections</a>
-            <a href="/contact" className="no-underline">Contact</a>
-          </div>
+    <footer style={{
+      borderTop: '1px solid #f0f0f0',
+      background: '#fff',
+      padding: '24px 40px',
+    }}>
+      <div style={{
+        maxWidth: '1100px',
+        margin: '0 auto',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+      }}>
+        <div style={{ fontSize: '12px', color: '#bbb' }}>
+          © {new Date().getFullYear()} {site.ownerName}
+        </div>
+        <div style={{ display: 'flex', gap: '24px' }}>
+          {[
+            { label: 'GitHub', href: site.contact.github },
+            { label: 'LinkedIn', href: site.contact.linkedin },
+            { label: 'Telegram', href: site.contact.telegram },
+          ].map((l) => (
+            <a key={l.label} href={l.href} target="_blank" rel="noreferrer" style={{
+              fontSize: '12px',
+              color: '#bbb',
+              textDecoration: 'none',
+            }}>
+              {l.label}
+            </a>
+          ))}
         </div>
       </div>
     </footer>

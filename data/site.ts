@@ -1,21 +1,23 @@
 export const site = {
-    title: "Your Name — Personal Website",
-    description: "Personal website to showcase achievements, books, reflections, and contact.",
-    url: "https://your-domain.vercel.app",
-    ownerName: "Your Name",
-    tagline: "Short intro or bio goes here. Keep it concise and professional.",
-    whatIDo:
-      "Add a few sentences about what you do—your role, your focus areas, and interests.",
-    nav: [
-      { label: "Achievements", href: "/achievements", description: "Awards, projects, milestones" },
-      { label: "Books", href: "/books", description: "Reading list with takeaways" },
-      { label: "Reflections", href: "/reflections", description: "Thoughts and learnings" },
-      { label: "Contact", href: "/contact", description: "How to reach me" }
-    ],
-    contact: {
-      email: "you@example.com",
-      telegram: "https://t.me/yourhandle",
-      linkedin: "https://www.linkedin.com/in/yourhandle",
-      github: "https://github.com/yourhandle"
-    }
-  };
+  title: "Aydos Inyatdinov — Engineer & Thinker",
+  description: "Personal website of Aydos Inyatdinov — engineer, critical thinker, and reader.",
+  url: "https://aydosinyatdinov.vercel.app",
+  ownerName: "Aydos Inyatdinov",
+  tagline: "Building things people want.",
+  whatIDo:
+    "I am an engineer, critical thinker, and reader. I am building products that solve painful problems, think deeply about ideas, and share what I learn along the way.",
+  nav: [
+    { label: "Achievements", href: "/achievements", description: "Awards & milestones" },
+    { label: "Books", href: "/books", description: "Reading list" },
+    { label: "Reflections", href: "/reflections", description: "Thoughts & ideas" },
+    { label: "Contact", href: "/contact", description: "Get in touch" }
+  ],
+  contact: {
+    email: "aydosed@gmail.com",
+    telegram: "https://t.me/aydosffr",
+    linkedin: "https://www.linkedin.com/in/aydos-inyatdinov-282163343/",
+    github: "https://github.com/AydosIn"
+  }
+};
+
+  
