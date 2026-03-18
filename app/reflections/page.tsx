@@ -31,7 +31,7 @@ export default function ReflectionsPage() {
             fontSize: "14px", color: "#aaa", fontWeight: 300,
             lineHeight: 1.7, maxWidth: "340px", margin: "0 auto 28px",
           }}>
-            I am working on my first reflections. Check back soon — ideas are brewing.
+            I am sorting my reflections. It will be published soon.
           </p>
           <div style={{
             display: "inline-flex", alignItems: "center", gap: "8px",
