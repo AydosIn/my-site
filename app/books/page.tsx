@@ -23,9 +23,15 @@ const genreColors: Record<string, string> = {
   behavior: "#f59e0b",
 };
 
+function getCoverUrl(title: string) {
+  const encoded = encodeURIComponent(title);
+  return `https://covers.openlibrary.org/b/title/${encoded}-M.jpg`;
+}
+
 export default function BooksPage() {
   const [query, setQuery] = useState("");
   const [openId, setOpenId] = useState<string | null>(null);
+  const [failedCovers, setFailedCovers] = useState<Set<string>>(new Set());
 
   const filtered = books.filter((b) => {
     const search = [b.title, b.author, ...(b.tags ?? []), b.takeaway ?? ""]
@@ -42,12 +48,8 @@ export default function BooksPage() {
         <div style={{ marginBottom: "32px" }}>
           <h1 style={{
             fontFamily: "Syne, sans-serif",
-            fontSize: "48px",
-            fontWeight: 800,
-            color: "#111",
-            letterSpacing: "-0.03em",
-            lineHeight: 1,
-            marginBottom: "20px",
+            fontSize: "48px", fontWeight: 800, color: "#111",
+            letterSpacing: "-0.03em", lineHeight: 1, marginBottom: "20px",
           }}>
             Books
           </h1>
@@ -88,6 +90,7 @@ export default function BooksPage() {
             const primaryTag = book.tags?.[0] ?? "other";
             const accent = genreColors[primaryTag] ?? "#111";
             const isOpen = openId === book.id;
+            const hasCover = !failedCovers.has(book.id);
 
             return (
               <div
@@ -102,21 +105,38 @@ export default function BooksPage() {
               >
                 {/* Main row */}
                 <div style={{
-                  display: "flex",
-                  alignItems: "center",
+                  display: "flex", alignItems: "center",
                   justifyContent: "space-between",
-                  padding: "14px 20px",
-                  gap: "16px",
+                  padding: "14px 20px", gap: "16px",
                 }}>
                   <div style={{ display: "flex", alignItems: "center", gap: "16px", flex: 1, minWidth: 0 }}>
-                    <div style={{
-                      width: "36px", height: "52px", borderRadius: "3px",
-                      background: accent + "22", flexShrink: 0,
-                      display: "flex", alignItems: "center",
-                      justifyContent: "center", fontSize: "18px",
-                    }}>
-                      📖
-                    </div>
+
+                    {/* Cover image or fallback */}
+                    {hasCover ? (
+                      <img
+                        src={getCoverUrl(book.title)}
+                        alt={book.title}
+                        onError={() => {
+                          setFailedCovers((prev) => new Set(prev).add(book.id));
+                        }}
+                        style={{
+                          width: "36px", height: "52px",
+                          objectFit: "cover", borderRadius: "3px",
+                          flexShrink: 0,
+                          boxShadow: "0 1px 6px rgba(0,0,0,0.15)",
+                        }}
+                      />
+                    ) : (
+                      <div style={{
+                        width: "36px", height: "52px", borderRadius: "3px",
+                        background: accent + "22", flexShrink: 0,
+                        display: "flex", alignItems: "center",
+                        justifyContent: "center", fontSize: "16px",
+                      }}>
+                        📖
+                      </div>
+                    )}
+
                     <div>
                       <div style={{
                         fontFamily: "Syne, sans-serif",
@@ -130,6 +150,7 @@ export default function BooksPage() {
                       </div>
                     </div>
                   </div>
+
                   <div style={{ display: "flex", alignItems: "center", gap: "12px", flexShrink: 0 }}>
                     <span style={{
                       fontSize: "10px", color: accent,
@@ -149,7 +170,7 @@ export default function BooksPage() {
                   </div>
                 </div>
 
-                {/* Expandable summary */}
+                {/* Expanded summary */}
                 {isOpen && (
                   <div style={{ padding: "0 20px 16px 72px" }}>
                     <div style={{
