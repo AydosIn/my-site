@@ -41,22 +41,22 @@ export default function BooksPage() {
   });
 
   return (
-    <div style={{ background: "#fff", minHeight: "100vh" }}>
+    <div style={{ backgroundColor: "var(--bg)", minHeight: "100vh", transition: "background-color 0.3s" }}>
       <div style={{ maxWidth: "860px", margin: "0 auto", padding: "64px 40px" }}>
 
         {/* Header */}
         <div style={{ marginBottom: "32px" }}>
           <h1 style={{
-            fontFamily: "Syne, sans-serif",
-            fontSize: "48px", fontWeight: 800, color: "#111",
-            letterSpacing: "-0.03em", lineHeight: 1, marginBottom: "20px",
+            fontFamily: "Syne, sans-serif", fontSize: "48px", fontWeight: 800,
+            color: "var(--fg)", letterSpacing: "-0.03em", lineHeight: 1, marginBottom: "20px",
+            transition: "color 0.3s",
           }}>
             Books
           </h1>
           <div style={{ position: "relative", maxWidth: "400px" }}>
             <span style={{
               position: "absolute", left: "12px", top: "50%",
-              transform: "translateY(-50%)", color: "#bbb",
+              transform: "translateY(-50%)", color: "var(--muted2)",
               fontSize: "14px", pointerEvents: "none",
             }}>
               ⌕
@@ -67,19 +67,16 @@ export default function BooksPage() {
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search by title, author, or topic..."
               style={{
-                width: "100%",
-                padding: "10px 16px 10px 36px",
-                border: "1.5px solid #e8e8e8",
-                borderRadius: "8px",
-                fontSize: "13px",
-                fontFamily: "Inter, sans-serif",
-                color: "#111",
-                outline: "none",
-                background: "#fafafa",
+                width: "100%", padding: "10px 16px 10px 36px",
+                border: "1.5px solid var(--border2)", borderRadius: "8px",
+                fontSize: "13px", fontFamily: "Inter, sans-serif",
+                color: "var(--fg)", outline: "none",
+                backgroundColor: "var(--card)",
+                transition: "all 0.3s",
               }}
             />
           </div>
-          <div style={{ fontSize: "12px", color: "#bbb", marginTop: "8px" }}>
+          <div style={{ fontSize: "12px", color: "var(--muted2)", marginTop: "8px" }}>
             {filtered.length} book{filtered.length !== 1 ? "s" : ""}
           </div>
         </div>
@@ -97,32 +94,26 @@ export default function BooksPage() {
                 key={book.id}
                 onClick={() => setOpenId(isOpen ? null : book.id)}
                 style={{
-                  borderLeft: `3px solid ${isOpen ? accent : "#f0f0f0"}`,
-                  marginBottom: "2px",
-                  cursor: "pointer",
+                  borderLeft: `3px solid ${isOpen ? accent : "var(--border)"}`,
+                  marginBottom: "2px", cursor: "pointer",
                   transition: "border-color 0.15s",
+                  backgroundColor: "var(--bg)",
                 }}
               >
-                {/* Main row */}
                 <div style={{
                   display: "flex", alignItems: "center",
                   justifyContent: "space-between",
                   padding: "14px 20px", gap: "16px",
                 }}>
                   <div style={{ display: "flex", alignItems: "center", gap: "16px", flex: 1, minWidth: 0 }}>
-
-                    {/* Cover image or fallback */}
                     {hasCover ? (
                       <img
                         src={getCoverUrl(book.title)}
                         alt={book.title}
-                        onError={() => {
-                          setFailedCovers((prev) => new Set(prev).add(book.id));
-                        }}
+                        onError={() => setFailedCovers((prev) => new Set(prev).add(book.id))}
                         style={{
-                          width: "36px", height: "52px",
-                          objectFit: "cover", borderRadius: "3px",
-                          flexShrink: 0,
+                          width: "36px", height: "52px", objectFit: "cover",
+                          borderRadius: "3px", flexShrink: 0,
                           boxShadow: "0 1px 6px rgba(0,0,0,0.15)",
                         }}
                       />
@@ -136,21 +127,20 @@ export default function BooksPage() {
                         📖
                       </div>
                     )}
-
                     <div>
                       <div style={{
-                        fontFamily: "Syne, sans-serif",
-                        fontSize: "15px", fontWeight: 700, color: "#111",
+                        fontFamily: "Syne, sans-serif", fontSize: "15px",
+                        fontWeight: 700, color: "var(--fg)",
                         whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis",
+                        transition: "color 0.3s",
                       }}>
                         {book.title}
                       </div>
-                      <div style={{ fontSize: "12px", color: "#aaa" }}>
+                      <div style={{ fontSize: "12px", color: "var(--muted2)", transition: "color 0.3s" }}>
                         {book.author}
                       </div>
                     </div>
                   </div>
-
                   <div style={{ display: "flex", alignItems: "center", gap: "12px", flexShrink: 0 }}>
                     <span style={{
                       fontSize: "10px", color: accent,
@@ -160,9 +150,8 @@ export default function BooksPage() {
                       {primaryTag}
                     </span>
                     <span style={{
-                      fontSize: "12px", color: isOpen ? "#888" : "#ccc",
-                      transition: "transform 0.2s, color 0.2s",
-                      display: "inline-block",
+                      fontSize: "12px", color: isOpen ? "var(--fg2)" : "var(--muted2)",
+                      transition: "transform 0.2s, color 0.2s", display: "inline-block",
                       transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
                     }}>
                       ▾
@@ -170,12 +159,12 @@ export default function BooksPage() {
                   </div>
                 </div>
 
-                {/* Expanded summary */}
                 {isOpen && (
                   <div style={{ padding: "0 20px 16px 72px" }}>
                     <div style={{
-                      fontSize: "13px", color: "#555",
+                      fontSize: "13px", color: "var(--fg2)",
                       lineHeight: 1.8, fontWeight: 300, maxWidth: "560px",
+                      transition: "color 0.3s",
                     }}>
                       {book.takeaway}
                     </div>
@@ -183,8 +172,8 @@ export default function BooksPage() {
                       <div style={{ display: "flex", gap: "6px", marginTop: "10px", flexWrap: "wrap" }}>
                         {book.tags.map((tag) => (
                           <span key={tag} style={{
-                            fontSize: "10px", color: "#999",
-                            background: "#f8f8f8", border: "1px solid #f0f0f0",
+                            fontSize: "10px", color: "var(--muted2)",
+                            background: "var(--card)", border: "1px solid var(--border)",
                             borderRadius: "4px", padding: "3px 8px",
                           }}>
                             {tag}
@@ -198,7 +187,6 @@ export default function BooksPage() {
             );
           })}
         </div>
-
       </div>
     </div>
   );
