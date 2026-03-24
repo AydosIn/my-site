@@ -45,7 +45,7 @@ export function Footer() {
             </svg>
           </a>
           <a
-            href="https://t.me/aydossthoughts"
+            href="https://t.me/aydosffr"
             target="_blank"
             rel="noreferrer"
             aria-label="Telegram"
