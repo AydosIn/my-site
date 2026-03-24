@@ -1,123 +1,129 @@
-import { site } from "@data/site";
-import { books } from "@data/books";
-import { achievements } from "@data/achievements";
-
 export default function HomePage() {
   return (
-    <div style={{ backgroundColor: "var(--bg)", minHeight: "100vh", transition: "background-color 0.3s" }}>
-      <div style={{ maxWidth: "1100px", margin: "0 auto", padding: "90px 40px 70px" }}>
-
-        {/* Badge */}
-        <div style={{
-          display: "inline-flex", alignItems: "center", gap: "8px",
-          backgroundColor: "var(--card)", border: "1px solid var(--border)",
-          borderRadius: "100px", padding: "6px 14px", marginBottom: "32px",
-          transition: "all 0.3s",
-        }}>
-          <div style={{ width: "6px", height: "6px", background: "#22c55e", borderRadius: "50%" }} />
-          <span style={{ fontSize: "12px", color: "var(--muted)" }}>Engineer · Critical Thinker · Reader</span>
-        </div>
-
-        {/* Hero */}
-        <h1 style={{
-          fontFamily: "Syne, sans-serif", fontSize: "68px", fontWeight: 800,
-          color: "var(--fg)", letterSpacing: "-0.03em", lineHeight: 1.0,
-          marginBottom: "24px", maxWidth: "700px", transition: "color 0.3s",
-        }}>
-          Building things<br />
-          <span style={{ color: "var(--muted2)" }}>people want.</span>
+    <div style={{ backgroundColor: "var(--bg)", minHeight: "100vh", transition: "all 0.3s" }}>
+      <div style={{ maxWidth: "680px", margin: "0 auto", padding: "72px 32px 64px" }}>
+        <h1
+          style={{
+            fontFamily: "Syne, sans-serif",
+            fontSize: "52px",
+            fontWeight: 800,
+            color: "var(--fg)",
+            letterSpacing: "-0.03em",
+            lineHeight: 1,
+            marginBottom: "28px",
+            transition: "all 0.3s",
+          }}
+        >
+          Hi, I&apos;m Aydos.
         </h1>
 
-        <p style={{
-          fontSize: "16px", color: "var(--fg2)", lineHeight: 1.7,
-          maxWidth: "480px", marginBottom: "40px", fontWeight: 300,
-          transition: "color 0.3s",
-        }}>
-          {site.whatIDo}
-        </p>
-
-        {/* Buttons */}
-        <div style={{ display: "flex", gap: "12px", marginBottom: "64px" }}>
-          <a href="/achievements" style={{
-            background: "var(--btn-primary-bg)", color: "var(--btn-primary-fg)",
-            padding: "12px 24px", borderRadius: "8px",
-            fontSize: "14px", fontWeight: 500, textDecoration: "none",
-            transition: "background 0.3s, color 0.3s",
-          }}>
-            View Achievements
-          </a>
-          <a href="/reflections" style={{
-            background: "#2563eb", color: "#fff", padding: "12px 24px",
-            borderRadius: "8px", fontSize: "14px", fontWeight: 500, textDecoration: "none",
-          }}>
-            Read Reflections →
-          </a>
-          <a href="/books" style={{
-            background: "transparent", color: "var(--muted)",
-            padding: "12px 24px", borderRadius: "8px", fontSize: "14px",
-            fontWeight: 400, textDecoration: "none",
-            border: "1px solid var(--border2)", transition: "all 0.3s",
-          }}>
-            Books
-          </a>
-        </div>
-
-        {/* Stats */}
-        <div style={{
-          display: "flex", gap: "48px", paddingTop: "48px",
-          borderTop: "1px solid var(--border)", marginBottom: "80px",
-          transition: "border-color 0.3s",
-        }}>
-          {[
-            { num: `${achievements.length}`, label: "Achievements" },
-            { num: `${books.length}`, label: "Books Read" },
-            { num: "∞", label: "Ideas Explored" },
-          ].map((s) => (
-            <div key={s.label}>
-              <div style={{
-                fontFamily: "Syne, sans-serif", fontSize: "36px",
-                fontWeight: 700, color: "var(--fg)", marginBottom: "4px",
-                transition: "color 0.3s",
-              }}>
-                {s.num}
-              </div>
-              <div style={{ fontSize: "12px", color: "var(--muted2)", transition: "color 0.3s" }}>
-                {s.label}
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Cards */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "12px" }}>
-          {site.nav.map((item, i) => (
-            <a key={item.href} href={item.href} style={{
-              background: "var(--card)", border: "1px solid var(--border)",
-              borderRadius: "12px", padding: "24px 20px",
-              textDecoration: "none", display: "block",
-              transition: "background 0.3s, border-color 0.3s",
-            }}>
-              <div style={{
-                fontSize: "10px", color: "var(--muted2)",
-                textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "10px",
-                transition: "color 0.3s",
-              }}>
-                0{i + 1}
-              </div>
-              <div style={{
-                fontFamily: "Syne, sans-serif", fontSize: "16px",
-                fontWeight: 600, color: "var(--fg)", marginBottom: "8px",
-                transition: "color 0.3s",
-              }}>
-                {item.label}
-              </div>
-              <div style={{ fontSize: "12px", color: "var(--muted)", lineHeight: 1.6, transition: "color 0.3s" }}>
-                {item.description}
-              </div>
+        <div
+          style={{
+            fontFamily: "Inter, sans-serif",
+            fontSize: "16px",
+            lineHeight: 1.85,
+            color: "var(--fg2)",
+            display: "grid",
+            gap: "18px",
+            transition: "all 0.3s",
+          }}
+        >
+          <p>I enjoy presenting myself and meeting new people. That&apos;s literally the whole point of this website.</p>
+          <p>
+            I study Data Science at{" "}
+            <a href="https://aut-edu.uz/" target="_blank" rel="noreferrer" style={{ color: "var(--fg)", textDecoration: "underline" }}>
+              American University of Technology
+            </a>{" "}
+            in Tashkent - class of 2029, on a full scholarship. Originally from Nukus, Karakalpakstan. I work at{" "}
+            <a href="https://aisha.group/" target="_blank" rel="noreferrer" style={{ color: "var(--fg)", textDecoration: "underline" }}>
+              Aisha AI
+            </a>{" "}
+            as a project manager, slowly figuring out how businesses actually work.
+          </p>
+          <p>
+            For three years I worked hard to get into a top US university. It didn&apos;t work out. I was angry and
+            embarrassed. But when I came to Tashkent, I saw something different - startups, smart people, real
+            opportunities. So I changed my plans.
+          </p>
+          <p>
+            Now I care about growing, personally and professionally. I read a lot about philosophy, education, and
+            humans. I have more questions than answers right now. And I think that is okay.
+          </p>
+          <p>
+            I also run a{" "}
+            <a href="https://t.me/aydossthoughts" target="_blank" rel="noreferrer" style={{ color: "var(--fg)", textDecoration: "underline" }}>
+              Telegram channel
+            </a>{" "}
+            where I share reflections on life, education, and things I observe. Thank you for reading. If any of this
+            resonates,{" "}
+            <a href="/contact" style={{ color: "var(--fg)", textDecoration: "underline" }}>
+              let me know
             </a>
-          ))}
+            .
+          </p>
         </div>
 
+        <div style={{ borderTop: "1px solid var(--border)", margin: "40px 0 24px", transition: "all 0.3s" }} />
+
+        <section style={{ marginBottom: "28px" }}>
+          <div style={{ fontSize: "11px", color: "var(--muted2)", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "10px" }}>
+            Reflections
+          </div>
+          <div style={{ display: "grid", gap: "8px" }}>
+            {[
+              { title: "Starting this site", meta: "Mar 2026" },
+              { title: "A small lesson", meta: "Mar 2026" },
+            ].map((item) => (
+              <div key={item.title} style={{ display: "flex", justifyContent: "space-between", gap: "14px", fontSize: "14px" }}>
+                <span style={{ color: "var(--fg)" }}>{item.title}</span>
+                <span style={{ color: "var(--muted)" }}>{item.meta}</span>
+              </div>
+            ))}
+          </div>
+          <a href="/reflections" style={{ display: "inline-block", marginTop: "10px", color: "#2563eb", textDecoration: "none", fontSize: "14px" }}>
+            View all reflections →
+          </a>
+        </section>
+
+        <section style={{ marginBottom: "28px" }}>
+          <div style={{ fontSize: "11px", color: "var(--muted2)", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "10px" }}>
+            Recently read
+          </div>
+          <div style={{ display: "grid", gap: "8px" }}>
+            {[
+              { title: "Clean Code", meta: "Robert C. Martin" },
+              { title: "Atomic Habits", meta: "James Clear" },
+            ].map((item) => (
+              <div key={item.title} style={{ display: "flex", justifyContent: "space-between", gap: "14px", fontSize: "14px" }}>
+                <span style={{ color: "var(--fg)" }}>{item.title}</span>
+                <span style={{ color: "var(--muted)" }}>{item.meta}</span>
+              </div>
+            ))}
+          </div>
+          <a href="/books" style={{ display: "inline-block", marginTop: "10px", color: "#2563eb", textDecoration: "none", fontSize: "14px" }}>
+            View all books →
+          </a>
+        </section>
+
+        <section>
+          <div style={{ fontSize: "11px", color: "var(--muted2)", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "10px" }}>
+            Finds
+          </div>
+          <div style={{ display: "grid", gap: "8px" }}>
+            {[
+              { title: "How to Think for Yourself - Paul Graham", meta: "paulgraham.com" },
+              { title: "The Cook and the Chef - Wait But Why", meta: "waitbutwhy.com" },
+            ].map((item) => (
+              <div key={item.title} style={{ display: "flex", justifyContent: "space-between", gap: "14px", fontSize: "14px" }}>
+                <span style={{ color: "var(--fg)" }}>{item.title}</span>
+                <span style={{ color: "var(--muted)" }}>{item.meta}</span>
+              </div>
+            ))}
+          </div>
+          <a href="/finds" style={{ display: "inline-block", marginTop: "10px", color: "#2563eb", textDecoration: "none", fontSize: "14px" }}>
+            View all finds →
+          </a>
+        </section>
       </div>
     </div>
   );

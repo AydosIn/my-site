@@ -9,6 +9,9 @@ import { site } from "@data/site";
 export const metadata: Metadata = {
   title: site.title,
   description: site.description,
+  icons: {
+    icon: "/icon.svg",
+  },
   verification: {
     google: "q2cNtrHN00O2fgyjc2Q4-pwMb2IOqgeFakf5irbE6xs",
   },

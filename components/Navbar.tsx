@@ -3,7 +3,7 @@ import { ThemeToggle } from "@components/ThemeToggle";
 
 export function Navbar() {
   return (
-    <header className="navbar-root">
+    <header className="navbar-root" style={{ borderBottom: "none" }}>
       <div style={{
         maxWidth: "1100px", margin: "0 auto",
         padding: "18px 40px",
@@ -17,7 +17,7 @@ export function Navbar() {
           {site.ownerName}
         </a>
         <nav style={{ display: "flex", gap: "24px", alignItems: "center" }}>
-          {["Achievements", "Books", "Reflections"].map((item) => (
+          {["Reflections", "Books", "Finds"].map((item) => (
             <a key={item} href={`/${item.toLowerCase()}`} style={{
               fontSize: "13px", textDecoration: "none",
               fontWeight: 400, color: "var(--muted)",
@@ -27,9 +27,9 @@ export function Navbar() {
             </a>
           ))}
           <a href="/contact" style={{
-            background: "#2563eb", color: "#fff",
-            padding: "8px 18px", borderRadius: "6px",
-            fontSize: "13px", fontWeight: 500, textDecoration: "none",
+            fontSize: "13px", textDecoration: "none",
+            fontWeight: 400, color: "var(--muted)",
+            transition: "color 0.3s",
           }}>
             Contact
           </a>
