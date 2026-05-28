@@ -9,6 +9,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       defaultTheme="light"
       enableSystem={false}
       storageKey="aydos-theme"
+      disableTransitionOnChange
     >
       {children}
     </NextThemesProvider>

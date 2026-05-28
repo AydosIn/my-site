@@ -5,6 +5,7 @@ import { Footer } from "@components/Footer";
 import { ThemeProvider } from "@components/ThemeProvider";
 import { Analytics } from "@vercel/analytics/react";
 import { site } from "@data/site";
+import { inter, syne } from "./fonts";
 
 export const metadata: Metadata = {
   title: site.title,
@@ -17,15 +18,18 @@ export const metadata: Metadata = {
   },
 };
 
+const themeInitScript = `(function(){try{var t=localStorage.getItem("aydos-theme");document.documentElement.classList.toggle("dark",t==="dark")}catch(e){}})();`;
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" className={`${inter.variable} ${syne.variable}`} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+      </head>
       <body>
         <ThemeProvider>
           <Navbar />
-          <main style={{ minHeight: "100vh", backgroundColor: "var(--bg)", transition: "background-color 0.3s" }}>
-            {children}
-          </main>
+          <main className="page-root">{children}</main>
           <Footer />
           <Analytics />
         </ThemeProvider>

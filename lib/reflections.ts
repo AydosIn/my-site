@@ -19,6 +19,12 @@ export type ReflectionFull = ReflectionMeta & {
   html: string;
 };
 
+function normalizeDate(value: unknown): string {
+  if (value instanceof Date) return value.toISOString().slice(0, 10);
+  if (typeof value === "string") return value;
+  return "";
+}
+
 async function ensureContentDir() {
   try {
     await fs.access(CONTENT_DIR);
@@ -46,7 +52,7 @@ export async function getAllReflections(): Promise<ReflectionMeta[]> {
 
     posts.push({
       title: (data.title as string) ?? file.replace(/\.md$/, ""),
-      date: (data.date as string) ?? "",
+      date: normalizeDate(data.date),
       tags: (data.tags as string[]) ?? [],
       slug,
       excerpt: excerptFromHtml(htmlString)
@@ -75,7 +81,7 @@ export async function getReflectionBySlug(slug: string): Promise<ReflectionFull>
       const htmlString = String(processed);
       return {
         title: (data.title as string) ?? file.replace(/\.md$/, ""),
-        date: (data.date as string) ?? "",
+        date: normalizeDate(data.date),
         tags: (data.tags as string[]) ?? [],
         slug: computedSlug,
         html: htmlString,
