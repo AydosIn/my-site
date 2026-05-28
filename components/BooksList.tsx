@@ -1,8 +1,10 @@
 "use client";
 
 import Image from "next/image";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { memo, useCallback, useMemo, useState } from "react";
 import type { Book } from "@data/books";
+import { MOTION } from "@lib/motion";
 
 const genreColors: Record<string, string> = {
   finance: "#f59e0b",
@@ -35,15 +37,18 @@ type BookRowProps = {
 };
 
 const BookRow = memo(function BookRow({ book, isOpen, onToggle }: BookRowProps) {
+  const reduced = useReducedMotion();
   const [coverFailed, setCoverFailed] = useState(false);
   const primaryTag = book.tags?.[0] ?? "other";
   const accent = genreColors[primaryTag] ?? "#111";
 
   return (
-    <div
+    <motion.div
       className={`book-row${isOpen ? " book-row--open" : ""}`}
       style={isOpen ? ({ "--book-accent": accent } as React.CSSProperties) : undefined}
       onClick={() => onToggle(book.id)}
+      whileHover={reduced ? undefined : { x: 2 }}
+      transition={MOTION.fast}
     >
       <div className="book-row__header">
         <div className="book-row__main">
@@ -71,39 +76,55 @@ const BookRow = memo(function BookRow({ book, isOpen, onToggle }: BookRowProps) 
           <span className="book-row__tag" style={{ color: accent, borderColor: accent }}>
             {primaryTag}
           </span>
-          <span className="book-row__chevron">▾</span>
+          <motion.span
+            className="book-row__chevron"
+            animate={{ rotate: isOpen ? 180 : 0, opacity: isOpen ? 0.85 : 0.55 }}
+            transition={MOTION.fast}
+          >
+            ▾
+          </motion.span>
         </div>
       </div>
 
-      {isOpen && (
-        <div className="book-row__detail">
-          <div className="book-row__takeaway">{book.takeaway}</div>
-          {book.tags && book.tags.length > 1 && (
-            <div style={{ display: "flex", gap: "6px", marginTop: "10px", flexWrap: "wrap" }}>
-              {book.tags.map((tag) => (
-                <span
-                  key={tag}
-                  style={{
-                    fontSize: "10px",
-                    color: "var(--muted2)",
-                    background: "var(--card)",
-                    border: "1px solid var(--border)",
-                    borderRadius: "4px",
-                    padding: "3px 8px",
-                  }}
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-          )}
-        </div>
-      )}
-    </div>
+      <AnimatePresence initial={false}>
+        {isOpen && (
+          <motion.div
+            className="book-row__detail"
+            initial={reduced ? false : { opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={reduced ? undefined : { opacity: 0, height: 0 }}
+            transition={MOTION.normal}
+            style={{ overflow: "hidden" }}
+          >
+            <div className="book-row__takeaway">{book.takeaway}</div>
+            {book.tags && book.tags.length > 1 && (
+              <div style={{ display: "flex", gap: "6px", marginTop: "10px", flexWrap: "wrap" }}>
+                {book.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    style={{
+                      fontSize: "10px",
+                      color: "var(--muted2)",
+                      background: "var(--card)",
+                      border: "1px solid var(--border)",
+                      borderRadius: "4px",
+                      padding: "3px 8px",
+                    }}
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
   );
 });
 
 export function BooksList({ books }: { books: Book[] }) {
+  const reduced = useReducedMotion();
   const [query, setQuery] = useState("");
   const [openId, setOpenId] = useState<string | null>(null);
 
@@ -121,7 +142,12 @@ export function BooksList({ books }: { books: Book[] }) {
 
   return (
     <>
-      <div style={{ marginBottom: "32px" }}>
+      <motion.div
+        initial={reduced ? false : { opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={MOTION.normal}
+        style={{ marginBottom: "32px" }}
+      >
         <h1
           className="font-syne"
           style={{
@@ -145,20 +171,31 @@ export function BooksList({ books }: { books: Book[] }) {
             className="books-search__input"
           />
         </div>
-        <div style={{ fontSize: "12px", color: "var(--muted2)", marginTop: "8px" }}>
+        <motion.div
+          key={filtered.length}
+          initial={reduced ? false : { opacity: 0.5 }}
+          animate={{ opacity: 1 }}
+          transition={MOTION.fast}
+          style={{ fontSize: "12px", color: "var(--muted2)", marginTop: "8px" }}
+        >
           {filtered.length} book{filtered.length !== 1 ? "s" : ""}
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
 
       <div>
-        {filtered.map((book) => (
-          <BookRow
-            key={book.id}
-            book={book}
-            isOpen={openId === book.id}
-            onToggle={handleToggle}
-          />
-        ))}
+        <AnimatePresence initial={false}>
+          {filtered.map((book) => (
+            <motion.div
+              key={book.id}
+              initial={reduced ? false : { opacity: 0, y: 4 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={reduced ? undefined : { opacity: 0, y: -4 }}
+              transition={MOTION.fast}
+            >
+              <BookRow book={book} isOpen={openId === book.id} onToggle={handleToggle} />
+            </motion.div>
+          ))}
+        </AnimatePresence>
       </div>
     </>
   );

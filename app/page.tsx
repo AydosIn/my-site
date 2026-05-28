@@ -1,5 +1,8 @@
 import Link from "next/link";
 import { learningNow, buildingNow, type HomePanelItem } from "@data/home";
+import { FadeIn, StaggerGroup, StaggerItem } from "@components/motion/FadeIn";
+import { HoverLift } from "@components/motion/HoverLift";
+import { MotionArrowLink } from "@components/motion/NavLink";
 
 const INTRO_TEXT =
   "There is nothing better than getting to know another soul. So, I created this. But I am sure people won't just dm me suddenly. They need to see who I really am. This place is exactly the right place for it. I will be sharing my projects, thoughts, reflections, and some more of it.";
@@ -34,14 +37,14 @@ function PanelItem({ item }: { item: HomePanelItem }) {
 
 function HomePanel({ label, items }: { label: string; items: HomePanelItem[] }) {
   return (
-    <div className="home-panel">
+    <HoverLift className="home-panel">
       <h2 className="home-panel__label">{label}</h2>
       <ul className="home-panel__list">
         {items.map((item) => (
           <PanelItem key={item.title} item={item} />
         ))}
       </ul>
-    </div>
+    </HoverLift>
   );
 }
 
@@ -49,23 +52,25 @@ export default function HomePage() {
   return (
     <>
       <div className="home-hero">
-        <article className="home-essay">
+        <FadeIn className="home-essay">
           <h1 className="home-essay__title">Hi, I am Aydos.</h1>
           <p className="home-essay__prose">{INTRO_TEXT}</p>
-        </article>
+        </FadeIn>
 
-        <aside className="home-aside" aria-label="Current focus">
-          <HomePanel label="Learning right now" items={learningNow} />
-          <HomePanel label="Building" items={buildingNow} />
-        </aside>
+        <FadeIn delay={0.06}>
+          <aside className="home-aside" aria-label="Current focus">
+            <HomePanel label="Learning right now" items={learningNow} />
+            <HomePanel label="Building" items={buildingNow} />
+          </aside>
+        </FadeIn>
       </div>
 
-      <div className="home-hero__rule-wrap">
+      <FadeIn className="home-hero__rule-wrap" delay={0.1}>
         <hr className="home-essay__rule" />
-      </div>
+      </FadeIn>
 
-      <div className="home-index">
-        <section className="home-index__section">
+      <StaggerGroup className="home-index">
+        <StaggerItem className="home-index__section">
           <h2 className="home-index__label">Reflections</h2>
           <div>
             {[
@@ -78,12 +83,12 @@ export default function HomePage() {
               </div>
             ))}
           </div>
-          <Link href="/reflections" className="home-index__link">
+          <MotionArrowLink href="/reflections" className="home-index__link">
             View all reflections →
-          </Link>
-        </section>
+          </MotionArrowLink>
+        </StaggerItem>
 
-        <section className="home-index__section">
+        <StaggerItem className="home-index__section">
           <h2 className="home-index__label">Recently read</h2>
           <div>
             {[
@@ -96,12 +101,12 @@ export default function HomePage() {
               </div>
             ))}
           </div>
-          <Link href="/books" className="home-index__link">
+          <MotionArrowLink href="/books" className="home-index__link">
             View all books →
-          </Link>
-        </section>
+          </MotionArrowLink>
+        </StaggerItem>
 
-        <section className="home-index__section">
+        <StaggerItem className="home-index__section">
           <h2 className="home-index__label">Finds</h2>
           <div>
             {[
@@ -114,11 +119,11 @@ export default function HomePage() {
               </div>
             ))}
           </div>
-          <Link href="/finds" className="home-index__link">
+          <MotionArrowLink href="/finds" className="home-index__link">
             View all finds →
-          </Link>
-        </section>
-      </div>
+          </MotionArrowLink>
+        </StaggerItem>
+      </StaggerGroup>
     </>
   );
 }

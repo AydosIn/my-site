@@ -1,11 +1,15 @@
 "use client";
 
+import Link from "next/link";
+import { motion, useReducedMotion } from "framer-motion";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
+import { MOTION } from "@lib/motion";
 
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const reduced = useReducedMotion();
 
   useEffect(() => setMounted(true), []);
   if (!mounted) return <div className="theme-toggle theme-toggle--placeholder" aria-hidden />;
@@ -13,15 +17,23 @@ export function ThemeToggle() {
   const isDark = theme === "dark";
 
   return (
-    <button
+    <motion.button
       type="button"
       className="theme-toggle"
       data-dark={isDark}
       onClick={() => setTheme(isDark ? "light" : "dark")}
       title="Toggle dark mode"
       aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+      whileHover={reduced ? undefined : { scale: 1.03 }}
+      whileTap={reduced ? undefined : { scale: 0.97 }}
+      transition={MOTION.fast}
     >
-      <span className="theme-toggle__knob" aria-hidden>
+      <motion.span
+        className="theme-toggle__knob"
+        aria-hidden
+        animate={{ x: isDark ? 24 : 0 }}
+        transition={reduced ? { duration: 0 } : MOTION.normal}
+      >
         {isDark ? (
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" strokeWidth="2.5" strokeLinecap="round">
             <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
@@ -39,7 +51,7 @@ export function ThemeToggle() {
             <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
           </svg>
         )}
-      </span>
-    </button>
+      </motion.span>
+    </motion.button>
   );
 }

@@ -1,6 +1,11 @@
+"use client";
+
 import Link from "next/link";
+import { motion, useReducedMotion } from "framer-motion";
 import { site } from "@data/site";
 import { ThemeToggle } from "@components/ThemeToggle";
+import { NavLink } from "@components/motion/NavLink";
+import { MOTION } from "@lib/motion";
 
 const navLinks = [
   { label: "Reflections", href: "/reflections" },
@@ -9,18 +14,27 @@ const navLinks = [
   { label: "Contact", href: "/contact" },
 ] as const;
 
+const MotionLink = motion.create(Link);
+
 export function Navbar() {
+  const reduced = useReducedMotion();
+
   return (
     <header className="navbar-root">
       <div className="navbar-inner">
-        <Link href="/" className="navbar-brand">
+        <MotionLink
+          href="/"
+          className="navbar-brand"
+          whileHover={reduced ? undefined : { opacity: 0.75 }}
+          transition={MOTION.fast}
+        >
           {site.ownerName}
-        </Link>
+        </MotionLink>
         <nav className="navbar-links">
           {navLinks.map((item) => (
-            <Link key={item.href} href={item.href} className="navbar-link">
+            <NavLink key={item.href} href={item.href}>
               {item.label}
-            </Link>
+            </NavLink>
           ))}
           <ThemeToggle />
         </nav>
