@@ -1,18 +1,18 @@
 "use client";
 
 import { m, useReducedMotion } from "framer-motion";
-import { MOTION, revealVariants } from "@lib/motion";
+import { MOTION, revealVariants, VIEWPORT } from "@lib/motion";
 
-export function FadeIn({
+export function RevealOnScroll({
   children,
-  delay = 0,
   className,
   style,
+  delay = 0,
 }: {
   children: React.ReactNode;
-  delay?: number;
   className?: string;
   style?: React.CSSProperties;
+  delay?: number;
 }) {
   const reduced = useReducedMotion();
 
@@ -21,7 +21,8 @@ export function FadeIn({
       className={className}
       style={style}
       initial={reduced ? false : revealVariants.hidden}
-      animate={revealVariants.visible}
+      whileInView={revealVariants.visible}
+      viewport={VIEWPORT}
       transition={{ ...MOTION.medium, delay: reduced ? 0 : delay }}
     >
       {children}
@@ -29,7 +30,7 @@ export function FadeIn({
   );
 }
 
-export function StaggerGroup({
+export function RevealStaggerGroup({
   children,
   className,
 }: {
@@ -42,11 +43,15 @@ export function StaggerGroup({
     <m.div
       className={className}
       initial="hidden"
-      animate="visible"
+      whileInView="visible"
+      viewport={VIEWPORT}
       variants={{
         hidden: {},
         visible: {
-          transition: { staggerChildren: reduced ? 0 : 0.06, delayChildren: reduced ? 0 : 0.04 },
+          transition: {
+            staggerChildren: reduced ? 0 : 0.06,
+            delayChildren: reduced ? 0 : 0.04,
+          },
         },
       }}
     >
@@ -55,7 +60,7 @@ export function StaggerGroup({
   );
 }
 
-export function StaggerItem({
+export function RevealStaggerItem({
   children,
   className,
 }: {

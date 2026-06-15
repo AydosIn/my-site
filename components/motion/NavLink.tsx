@@ -2,10 +2,10 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { motion, useReducedMotion } from "framer-motion";
+import { m, useReducedMotion } from "framer-motion";
 import { MOTION } from "@lib/motion";
 
-const MotionLink = motion.create(Link);
+const MotionLink = m.create(Link);
 
 export function NavLink({ href, children }: { href: string; children: React.ReactNode }) {
   const pathname = usePathname();
@@ -14,13 +14,13 @@ export function NavLink({ href, children }: { href: string; children: React.Reac
 
   return (
     <Link href={href} className="navbar-link" data-active={isActive || undefined}>
-      <motion.span
+      <m.span
         className="navbar-link__label"
         whileHover={reduced ? undefined : { y: -1, opacity: 1 }}
-        transition={MOTION.fast}
+        transition={MOTION.micro}
       >
         {children}
-      </motion.span>
+      </m.span>
     </Link>
   );
 }
@@ -41,7 +41,7 @@ export function MotionArrowLink({
       href={href}
       className={className}
       whileHover={reduced ? undefined : { x: 3, opacity: 0.8 }}
-      transition={MOTION.fast}
+      transition={MOTION.micro}
     >
       {children}
     </MotionLink>

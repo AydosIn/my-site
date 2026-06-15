@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { motion, useReducedMotion } from "framer-motion";
+import { m, useReducedMotion } from "framer-motion";
 import { site } from "@data/site";
 import { ThemeToggle } from "@components/ThemeToggle";
 import { NavLink } from "@components/motion/NavLink";
@@ -14,7 +14,7 @@ const navLinks = [
   { label: "Contact", href: "/contact" },
 ] as const;
 
-const MotionLink = motion.create(Link);
+const MotionLink = m.create(Link);
 
 export function Navbar() {
   const reduced = useReducedMotion();
@@ -26,7 +26,7 @@ export function Navbar() {
           href="/"
           className="navbar-brand"
           whileHover={reduced ? undefined : { opacity: 0.75 }}
-          transition={MOTION.fast}
+          transition={MOTION.micro}
         >
           {site.ownerName}
         </MotionLink>

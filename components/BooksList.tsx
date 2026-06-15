@@ -1,10 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, m, useReducedMotion } from "framer-motion";
 import { memo, useCallback, useMemo, useState } from "react";
 import type { Book } from "@data/books";
-import { MOTION } from "@lib/motion";
+import { MOTION, hoverBreathe, revealVariants } from "@lib/motion";
 
 const genreColors: Record<string, string> = {
   finance: "#f59e0b",
@@ -43,12 +43,12 @@ const BookRow = memo(function BookRow({ book, isOpen, onToggle }: BookRowProps) 
   const accent = genreColors[primaryTag] ?? "#111";
 
   return (
-    <motion.div
+    <m.div
       className={`book-row${isOpen ? " book-row--open" : ""}`}
       style={isOpen ? ({ "--book-accent": accent } as React.CSSProperties) : undefined}
       onClick={() => onToggle(book.id)}
-      whileHover={reduced ? undefined : { x: 2 }}
-      transition={MOTION.fast}
+      whileHover={reduced ? undefined : { ...hoverBreathe, x: 2 }}
+      transition={MOTION.micro}
     >
       <div className="book-row__header">
         <div className="book-row__main">
@@ -76,24 +76,24 @@ const BookRow = memo(function BookRow({ book, isOpen, onToggle }: BookRowProps) 
           <span className="book-row__tag" style={{ color: accent, borderColor: accent }}>
             {primaryTag}
           </span>
-          <motion.span
+          <m.span
             className="book-row__chevron"
             animate={{ rotate: isOpen ? 180 : 0, opacity: isOpen ? 0.85 : 0.55 }}
-            transition={MOTION.fast}
+            transition={MOTION.micro}
           >
             ▾
-          </motion.span>
+          </m.span>
         </div>
       </div>
 
       <AnimatePresence initial={false}>
         {isOpen && (
-          <motion.div
+          <m.div
             className="book-row__detail"
             initial={reduced ? false : { opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={reduced ? undefined : { opacity: 0, height: 0 }}
-            transition={MOTION.normal}
+            transition={MOTION.medium}
             style={{ overflow: "hidden" }}
           >
             <div className="book-row__takeaway">{book.takeaway}</div>
@@ -116,10 +116,10 @@ const BookRow = memo(function BookRow({ book, isOpen, onToggle }: BookRowProps) 
                 ))}
               </div>
             )}
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
-    </motion.div>
+    </m.div>
   );
 });
 
@@ -142,10 +142,10 @@ export function BooksList({ books }: { books: Book[] }) {
 
   return (
     <>
-      <motion.div
-        initial={reduced ? false : { opacity: 0, y: 8 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={MOTION.normal}
+      <m.div
+        initial={reduced ? false : revealVariants.hidden}
+        animate={revealVariants.visible}
+        transition={MOTION.medium}
         style={{ marginBottom: "32px" }}
       >
         <h1
@@ -171,29 +171,29 @@ export function BooksList({ books }: { books: Book[] }) {
             className="books-search__input"
           />
         </div>
-        <motion.div
+        <m.div
           key={filtered.length}
           initial={reduced ? false : { opacity: 0.5 }}
           animate={{ opacity: 1 }}
-          transition={MOTION.fast}
+          transition={MOTION.micro}
           style={{ fontSize: "12px", color: "var(--muted2)", marginTop: "8px" }}
         >
           {filtered.length} book{filtered.length !== 1 ? "s" : ""}
-        </motion.div>
-      </motion.div>
+        </m.div>
+      </m.div>
 
       <div>
         <AnimatePresence initial={false}>
           {filtered.map((book) => (
-            <motion.div
+            <m.div
               key={book.id}
-              initial={reduced ? false : { opacity: 0, y: 4 }}
+              initial={reduced ? false : { opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={reduced ? undefined : { opacity: 0, y: -4 }}
-              transition={MOTION.fast}
+              exit={reduced ? undefined : { opacity: 0, y: -8 }}
+              transition={MOTION.micro}
             >
               <BookRow book={book} isOpen={openId === book.id} onToggle={handleToggle} />
-            </motion.div>
+            </m.div>
           ))}
         </AnimatePresence>
       </div>

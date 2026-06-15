@@ -1,7 +1,7 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
-import { MOTION, hoverLift, hoverTap } from "@lib/motion";
+import { m, useReducedMotion } from "framer-motion";
+import { MOTION, hoverBreathe, tapBreathe } from "@lib/motion";
 
 export function HoverLift({
   children,
@@ -15,14 +15,14 @@ export function HoverLift({
   const reduced = useReducedMotion();
 
   return (
-    <motion.div
+    <m.div
       className={className}
       style={style}
-      whileHover={reduced ? undefined : hoverLift}
-      whileTap={reduced ? undefined : hoverTap}
-      transition={MOTION.normal}
+      whileHover={reduced ? undefined : hoverBreathe}
+      whileTap={reduced ? undefined : tapBreathe}
+      transition={MOTION.micro}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }

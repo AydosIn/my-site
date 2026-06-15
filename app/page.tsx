@@ -1,11 +1,14 @@
 import Link from "next/link";
 import { learningNow, buildingNow, type HomePanelItem } from "@data/home";
-import { FadeIn, StaggerGroup, StaggerItem } from "@components/motion/FadeIn";
+import { FadeIn } from "@components/motion/FadeIn";
+import { RevealStaggerGroup, RevealStaggerItem } from "@components/motion/RevealOnScroll";
 import { HoverLift } from "@components/motion/HoverLift";
 import { MotionArrowLink } from "@components/motion/NavLink";
 
 const INTRO_TEXT =
   "There is nothing better than getting to know another soul. So, I created this. But I am sure people won't just dm me suddenly. They need to see who I really am. This place is exactly the right place for it. I will be sharing my projects, thoughts, reflections, and some more of it.";
+
+const YANDEX_MUSIC_ALBUM_EMBED = "https://music.yandex.ru/iframe/#album/37472433";
 
 function PanelItem({ item }: { item: HomePanelItem }) {
   const title = item.href ? (
@@ -55,6 +58,15 @@ export default function HomePage() {
         <FadeIn className="home-essay">
           <h1 className="home-essay__title">Hi, I am Aydos.</h1>
           <p className="home-essay__prose">{INTRO_TEXT}</p>
+          <div className="home-essay__music">
+            <iframe
+              className="home-music-embed"
+              src={YANDEX_MUSIC_ALBUM_EMBED}
+              title="Yandex Music album"
+              frameBorder={0}
+              allow="autoplay; fullscreen"
+            />
+          </div>
         </FadeIn>
 
         <FadeIn delay={0.06}>
@@ -69,8 +81,8 @@ export default function HomePage() {
         <hr className="home-essay__rule" />
       </FadeIn>
 
-      <StaggerGroup className="home-index">
-        <StaggerItem className="home-index__section">
+      <RevealStaggerGroup className="home-index">
+        <RevealStaggerItem className="home-index__section">
           <h2 className="home-index__label">Reflections</h2>
           <div>
             {[
@@ -86,9 +98,9 @@ export default function HomePage() {
           <MotionArrowLink href="/reflections" className="home-index__link">
             View all reflections →
           </MotionArrowLink>
-        </StaggerItem>
+        </RevealStaggerItem>
 
-        <StaggerItem className="home-index__section">
+        <RevealStaggerItem className="home-index__section">
           <h2 className="home-index__label">Recently read</h2>
           <div>
             {[
@@ -104,9 +116,9 @@ export default function HomePage() {
           <MotionArrowLink href="/books" className="home-index__link">
             View all books →
           </MotionArrowLink>
-        </StaggerItem>
+        </RevealStaggerItem>
 
-        <StaggerItem className="home-index__section">
+        <RevealStaggerItem className="home-index__section">
           <h2 className="home-index__label">Finds</h2>
           <div>
             {[
@@ -122,8 +134,8 @@ export default function HomePage() {
           <MotionArrowLink href="/finds" className="home-index__link">
             View all finds →
           </MotionArrowLink>
-        </StaggerItem>
-      </StaggerGroup>
+        </RevealStaggerItem>
+      </RevealStaggerGroup>
     </>
   );
 }

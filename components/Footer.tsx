@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { m, useReducedMotion } from "framer-motion";
 import { site } from "@data/site";
 import { MOTION } from "@lib/motion";
 
@@ -46,20 +46,20 @@ export function Footer() {
         </div>
         <div style={{ display: "flex", gap: "20px", alignItems: "center" }}>
           {socialLinks.map((link) => (
-            <motion.a
+            <m.a
               key={link.label}
               href={link.href}
               target="_blank"
               rel="noreferrer"
               aria-label={link.label}
               className="footer-icon"
-              whileHover={reduced ? undefined : { y: -2, opacity: 1 }}
-              transition={MOTION.fast}
+              whileHover={reduced ? undefined : { y: -2, scale: 1.08, opacity: 1 }}
+              transition={MOTION.micro}
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
                 {link.icon}
               </svg>
-            </motion.a>
+            </m.a>
           ))}
         </div>
       </div>

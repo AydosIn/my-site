@@ -1,10 +1,10 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { m, useReducedMotion } from "framer-motion";
 import { useMemo, useState } from "react";
 import type { Find } from "@data/finds";
-import { StaggerGroup, StaggerItem } from "@components/motion/FadeIn";
-import { MOTION, hoverLift, hoverTap } from "@lib/motion";
+import { RevealStaggerGroup, RevealStaggerItem } from "@components/motion/RevealOnScroll";
+import { MOTION, hoverBreathe, revealVariants, tapBreathe } from "@lib/motion";
 
 const tagColors: Record<string, string> = {
   thinking: "#f97316",
@@ -29,10 +29,10 @@ export function FindsList({ finds }: { finds: Find[] }) {
 
   return (
     <>
-      <motion.div
-        initial={reduced ? false : { opacity: 0, y: 8 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={MOTION.normal}
+      <m.div
+        initial={reduced ? false : revealVariants.hidden}
+        animate={revealVariants.visible}
+        transition={MOTION.medium}
         style={{ marginBottom: "32px" }}
       >
         <h1
@@ -61,38 +61,38 @@ export function FindsList({ finds }: { finds: Find[] }) {
             className="books-search__input"
           />
         </div>
-        <motion.div
+        <m.div
           key={filtered.length}
           initial={reduced ? false : { opacity: 0.5 }}
           animate={{ opacity: 1 }}
-          transition={MOTION.fast}
+          transition={MOTION.micro}
           style={{ fontSize: "12px", color: "var(--muted2)", marginTop: "8px" }}
         >
           {filtered.length} find{filtered.length !== 1 ? "s" : ""}
-        </motion.div>
-      </motion.div>
+        </m.div>
+      </m.div>
 
-      <StaggerGroup className="finds-grid">
+      <RevealStaggerGroup className="finds-grid">
         {filtered.map((item) => (
-          <StaggerItem key={item.id}>
-            <motion.a
+          <RevealStaggerItem key={item.id}>
+            <m.a
               href={item.url}
               target="_blank"
               rel="noreferrer"
               className="find-card"
-              whileHover={reduced ? undefined : hoverLift}
-              whileTap={reduced ? undefined : hoverTap}
-              transition={MOTION.normal}
+              whileHover={reduced ? undefined : hoverBreathe}
+              whileTap={reduced ? undefined : tapBreathe}
+              transition={MOTION.micro}
             >
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "12px", marginBottom: "8px" }}>
                 <div className="find-card__title">{item.title}</div>
-                <motion.span
+                <m.span
                   style={{ fontSize: "12px", color: "var(--muted2)", whiteSpace: "nowrap" }}
                   whileHover={reduced ? undefined : { x: 2, opacity: 1 }}
-                  transition={MOTION.fast}
+                  transition={MOTION.micro}
                 >
                   ↗
-                </motion.span>
+                </m.span>
               </div>
               <div className="find-card__source">{item.source}</div>
               <div className="find-card__desc">{item.description}</div>
@@ -106,10 +106,10 @@ export function FindsList({ finds }: { finds: Find[] }) {
                   );
                 })}
               </div>
-            </motion.a>
-          </StaggerItem>
+            </m.a>
+          </RevealStaggerItem>
         ))}
-      </StaggerGroup>
+      </RevealStaggerGroup>
     </>
   );
 }

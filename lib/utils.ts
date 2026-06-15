@@ -12,3 +12,6 @@ export function toSlug(input: string): string {
     const truncated = text.slice(0, maxLength);
     return truncated.slice(0, truncated.lastIndexOf(" ")).concat("…");
   }
+
+
+  

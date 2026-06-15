@@ -1,10 +1,10 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { m, useReducedMotion } from "framer-motion";
 import { site } from "@data/site";
 import { FadeIn } from "@components/motion/FadeIn";
 import { HoverLift } from "@components/motion/HoverLift";
-import { MOTION, hoverLift, hoverTap } from "@lib/motion";
+import { MOTION, hoverBreathe, tapBreathe } from "@lib/motion";
 
 type ContactCard = {
   label: string;
@@ -91,14 +91,14 @@ function ContactCardLink({ card }: { card: ContactCard }) {
   const colored = isColored(card.style);
 
   return (
-    <motion.a
+    <m.a
       href={card.href}
       target="_blank"
       rel="noreferrer"
       style={getCardStyle(card.style)}
-      whileHover={reduced ? undefined : hoverLift}
-      whileTap={reduced ? undefined : hoverTap}
-      transition={MOTION.normal}
+      whileHover={reduced ? undefined : hoverBreathe}
+      whileTap={reduced ? undefined : tapBreathe}
+      transition={MOTION.micro}
     >
       <div style={{ display: "flex", alignItems: "center", gap: "14px" }}>
         <div
@@ -141,7 +141,7 @@ function ContactCardLink({ card }: { card: ContactCard }) {
         </div>
       </div>
       <div style={{ fontSize: "14px", color: colored ? "rgba(255,255,255,0.4)" : "var(--muted2)" }}>↗</div>
-    </motion.a>
+    </m.a>
   );
 }
 
@@ -177,14 +177,14 @@ export function ContactCards() {
         ))}
 
         <FadeIn delay={0.24} className="contact-github-wrap">
-          <motion.a
+          <m.a
             href={site.contact.github}
             target="_blank"
             rel="noreferrer"
             style={{ ...getCardStyle("light"), gridColumn: "span 2" }}
-            whileHover={reduced ? undefined : hoverLift}
-            whileTap={reduced ? undefined : hoverTap}
-            transition={MOTION.normal}
+            whileHover={reduced ? undefined : hoverBreathe}
+            whileTap={reduced ? undefined : tapBreathe}
+            transition={MOTION.micro}
           >
             <div style={{ display: "flex", alignItems: "center", gap: "14px" }}>
               <div
@@ -210,7 +210,7 @@ export function ContactCards() {
               </div>
             </div>
             <div style={{ fontSize: "14px", color: "var(--muted2)" }}>↗</div>
-          </motion.a>
+          </m.a>
         </FadeIn>
       </div>
 
