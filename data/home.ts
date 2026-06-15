@@ -20,7 +20,7 @@ export const buildingNow: HomePanelItem[] = [
     href: site.url,
     external: true,
   },
-  { title: "AI products", detail: "Aisha AI" },
+  { title: "My identity", detail: "character & who I am" },
   {
     title: "Python CLI games",
     detail: "word & number guessing",
