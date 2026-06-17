@@ -1,36 +1,114 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Aydos Inyatdinov — Personal Website
 
-## Getting Started
+My personal site for sharing who I am: projects, reflections, books I read, links I find useful, and how to reach me.
 
-First, run the development server:
+Live: [aydosinyatdinov.dev](https://aydosinyatdinov.dev)
+
+## What is this?
+
+This is my personal website — a single place where I share reflections, books I read, curated finds, projects, and contact info.
+
+**Pages:**
+
+- **Home** — intro, Yandex Music playlist embed, and what I'm learning and building right now
+- **Reflections** — essays and thoughts written as Markdown
+- **Books** — my reading list
+- **Finds** — useful links and articles from around the web
+- **Achievements** — awards and milestones
+- **Contact** — email, Telegram, LinkedIn, and GitHub
+
+## Why did you build it?
+
+People rarely message someone out of the blue — they want to see who you are first. This site is that place: a single home for my projects, reflections, useful finds, and how to reach me.
+
+## What can it do?
+
+The site showcases who I am and what I'm working on. Content lives in the repo as files — there is no separate CMS or database.
+
+| Content type | How it is stored |
+|---|---|
+| Reflections / essays | Markdown in `content/reflections/`, parsed with gray-matter and remark |
+| Books, finds, achievements, home panels | TypeScript data files in `data/` |
+| Contact | `data/site.ts` and the Contact page |
+
+**Features already built:**
+
+- Dark / light theme toggle
+- Page transitions and scroll animations
+- Embedded Yandex Music playlist on the home page
+- SEO metadata and sitemap
+
+## How do I run it?
+
+**Prerequisites:** Node.js (v18+ recommended for Next.js 16)
 
 ```bash
+cd my-site
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+**Other scripts:**
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `npm run build` — production build
+- `npm run start` — serve the production build
+- `npm run lint` — run ESLint
 
-## Learn More
+### Adding content
 
-To learn more about Next.js, take a look at the following resources:
+**New reflection:** add a `.md` file under `content/reflections/` with frontmatter:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```markdown
+---
+title: My Post Title
+date: 2026-03-01
+tags: [tag1, tag2]
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Your essay content here.
+```
 
-## Deploy on Vercel
+**New find, book, or achievement:** edit the matching file in `data/` (`finds.ts`, `books.ts`, `achievements.ts`).
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+**Contact info:** update `data/site.ts`.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## What technologies did you use?
+
+**Core**
+
+- [Next.js 16](https://nextjs.org) (App Router)
+- [React 19](https://react.dev)
+- [TypeScript](https://www.typescriptlang.org)
+
+**Styling & UI**
+
+- [Tailwind CSS 4](https://tailwindcss.com)
+- [Framer Motion](https://www.framer.com/motion/) — animations and page transitions
+- [next-themes](https://github.com/pacocoursey/next-themes) — dark/light mode
+- Custom CSS in `app/globals.css`
+- Fonts: Inter + Syne (`app/fonts.ts`)
+
+**Content**
+
+- [gray-matter](https://github.com/jonschlinkert/gray-matter) — Markdown frontmatter parsing
+- [remark](https://remark.js.org) + remark-html — Markdown to HTML
+
+**Tooling & deployment**
+
+- ESLint (`eslint-config-next`)
+- [@vercel/analytics](https://vercel.com/docs/analytics) — site analytics
+- Hosted on [Vercel](https://vercel.com)
+
+## What did you learn?
+
+- **Vibe coding with AI** — how to write clearer prompts and debug with AI assistance
+- **HTML embedding** — embedding external content (Yandex Music iframe) to share a music playlist on the home page
+- Building a real site incrementally: routing, content structure, and small UX details like theme toggle and motion
+
+## What are you planning to improve?
+
+- Improve overall **design** and visual polish
+- Share **more information and content** — more reflections, books, and finds
+- Improve **UI and UX** — layout, navigation, readability, and interactions
