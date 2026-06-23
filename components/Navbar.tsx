@@ -49,6 +49,11 @@ export function Navbar() {
           <Link href="/" className="navbar-brand__name">
             {site.ownerName}
           </Link>
+          <ul className="navbar-brand__facts">
+            {site.devFacts.map((fact) => (
+              <li key={fact}>{fact}</li>
+            ))}
+          </ul>
         </div>
 
         <nav className="navbar-nav" aria-label="Primary">
