@@ -1,42 +1,60 @@
 "use client";
 
 import Link from "next/link";
-import { m, useReducedMotion } from "framer-motion";
+import { usePathname } from "next/navigation";
 import { site } from "@data/site";
-import { ThemeToggle } from "@components/ThemeToggle";
-import { NavLink } from "@components/motion/NavLink";
-import { MOTION } from "@lib/motion";
 
-const navLinks = [
-  { label: "Reflections", href: "/reflections" },
-  { label: "Books", href: "/books" },
-  { label: "Finds", href: "/finds" },
-  { label: "Contact", href: "/contact" },
+const navItems = [
+  { label: "cv", href: site.cvUrl, external: true },
+  { label: "projects", href: "/projects" },
+  { label: "books", href: "/books" },
+  { label: "reflections", href: "/reflections" },
 ] as const;
 
-const MotionLink = m.create(Link);
+function NavButton({
+  label,
+  href,
+  external,
+}: {
+  label: string;
+  href: string;
+  external?: boolean;
+}) {
+  const pathname = usePathname();
+  const active = !external && pathname.startsWith(href);
+
+  if (external) {
+    return (
+      <a href={href} className="nav-btn" target="_blank" rel="noreferrer">
+        {label}
+      </a>
+    );
+  }
+
+  return (
+    <Link href={href} className="nav-btn" data-active={active || undefined}>
+      {label}
+    </Link>
+  );
+}
 
 export function Navbar() {
-  const reduced = useReducedMotion();
-
   return (
     <header className="navbar-root">
       <div className="navbar-inner">
-        <MotionLink
-          href="/"
-          className="navbar-brand"
-          whileHover={reduced ? undefined : { opacity: 0.75 }}
-          transition={MOTION.micro}
-        >
-          {site.ownerName}
-        </MotionLink>
-        <nav className="navbar-links">
-          {navLinks.map((item) => (
-            <NavLink key={item.href} href={item.href}>
-              {item.label}
-            </NavLink>
+        <div className="navbar-brand">
+          <div className="navbar-brand__prompt">
+            ~/aydos $<span className="hero__cursor" aria-hidden="true" />
+          </div>
+          <Link href="/" className="navbar-brand__name">
+            {site.ownerName}
+          </Link>
+        </div>
+
+        <nav className="navbar-nav" aria-label="Primary">
+          {navItems.map((item) => (
+            <NavButton key={item.label} {...item} />
           ))}
-          <ThemeToggle />
         </nav>
       </div>
     </header>

@@ -1,15 +1,21 @@
-import { Inter, Syne } from "next/font/google";
+import { JetBrains_Mono, Bitcount_Grid_Double, Press_Start_2P } from "next/font/google";
 
-export const inter = Inter({
+export const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
-  variable: "--font-inter",
+  weight: ["400", "500"],
+  variable: "--font-mono",
   display: "swap",
 });
 
-export const syne = Syne({
+export const bitcountGrid = Bitcount_Grid_Double({
   subsets: ["latin"],
-  weight: ["400", "600", "700", "800"],
-  variable: "--font-syne",
+  variable: "--font-display",
+  display: "swap",
+});
+
+export const pressStart = Press_Start_2P({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-press",
   display: "swap",
 });

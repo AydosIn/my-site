@@ -1,141 +1,85 @@
 import Link from "next/link";
-import { learningNow, buildingNow, type HomePanelItem } from "@data/home";
-import { FadeIn } from "@components/motion/FadeIn";
-import { RevealStaggerGroup, RevealStaggerItem } from "@components/motion/RevealOnScroll";
-import { HoverLift } from "@components/motion/HoverLift";
-import { MotionArrowLink } from "@components/motion/NavLink";
+import { site } from "@data/site";
+import { recentlyRead } from "@data/home";
+import { projects } from "@data/projects";
+import { getAllReflections } from "@lib/reflections";
 
-const INTRO_TEXT =
-  "There is nothing better than getting to know another soul. So, I created this. But I am sure people won't just dm me suddenly. They need to see who I really am. This place is exactly the right place for it. I will be sharing my projects, thoughts, reflections, and some more of it.";
-
-const YANDEX_MUSIC_ALBUM_EMBED = "https://music.yandex.ru/iframe/#album/37472433";
-
-function PanelItem({ item }: { item: HomePanelItem }) {
-  const title = item.href ? (
-    item.external ? (
-      <a
-        href={item.href}
-        className="home-panel__item-title"
-        target="_blank"
-        rel="noreferrer"
-      >
-        {item.title}
-      </a>
-    ) : (
-      <Link href={item.href} className="home-panel__item-title">
-        {item.title}
-      </Link>
-    )
-  ) : (
-    <span className="home-panel__item-title">{item.title}</span>
-  );
-
-  return (
-    <li>
-      {title}
-      {item.detail ? <span className="home-panel__item-detail">{item.detail}</span> : null}
-    </li>
-  );
+function formatDate(date: string) {
+  if (!date) return "";
+  const d = new Date(date);
+  return d.toLocaleDateString("en-US", { month: "short", year: "numeric" }).toLowerCase();
 }
 
-function HomePanel({ label, items }: { label: string; items: HomePanelItem[] }) {
-  return (
-    <HoverLift className="home-panel">
-      <h2 className="home-panel__label">{label}</h2>
-      <ul className="home-panel__list">
-        {items.map((item) => (
-          <PanelItem key={item.title} item={item} />
-        ))}
-      </ul>
-    </HoverLift>
-  );
-}
+export default async function HomePage() {
+  const reflections = (await getAllReflections()).slice(0, 3);
 
-export default function HomePage() {
   return (
     <>
-      <div className="home-hero">
-        <FadeIn className="home-essay">
-          <h1 className="home-essay__title">Hi, I am Aydos.</h1>
-          <p className="home-essay__prose">{INTRO_TEXT}</p>
-          <div className="home-essay__music">
-            <iframe
-              className="home-music-embed"
-              src={YANDEX_MUSIC_ALBUM_EMBED}
-              title="Yandex Music album"
-              frameBorder={0}
-              allow="autoplay; fullscreen"
-            />
-          </div>
-        </FadeIn>
+      <section className="hero">
+        <p className="hero__comment">// engineer & thinker</p>
 
-        <FadeIn delay={0.06}>
-          <aside className="home-aside" aria-label="Current focus">
-            <HomePanel label="Learning right now" items={learningNow} />
-            <HomePanel label="Building" items={buildingNow} />
-          </aside>
-        </FadeIn>
+        <div className="hero__tagline">
+          {site.tagline.map((line) => (
+            <p key={line}>{line}</p>
+          ))}
+        </div>
+      </section>
+
+      <div className="sections">
+        <section className="section">
+          <h2 className="section__header">// building</h2>
+          {projects.map((project) => (
+            <div key={project.name} className="section__row">
+              <span className="section__row-left">
+                {project.href ? (
+                  <a href={project.href} target="_blank" rel="noreferrer">
+                    {project.name}
+                  </a>
+                ) : (
+                  project.name
+                )}
+                <span className="tag">[{project.status}]</span>
+              </span>
+              <span className="section__row-right">{project.stack}</span>
+            </div>
+          ))}
+          <Link href="/projects" className="section__link">
+            all projects →
+          </Link>
+        </section>
+
+        <section className="section">
+          <h2 className="section__header">// reflections</h2>
+          {reflections.length > 0 ? (
+            reflections.map((post) => (
+              <div key={post.slug} className="section__row">
+                <Link href={`/reflections/${post.slug}`} className="section__row-left">
+                  {post.title.toLowerCase()}
+                </Link>
+                <span className="section__row-right">{formatDate(post.date)}</span>
+              </div>
+            ))
+          ) : (
+            <p style={{ color: "var(--dim)", fontSize: "12px" }}>nothing here yet.</p>
+          )}
+          <Link href="/reflections" className="section__link">
+            all reflections →
+          </Link>
+        </section>
+
+        <section className="section">
+          <h2 className="section__header">// recently read</h2>
+          {recentlyRead.map((book) => (
+            <div key={book.title} className="section__row">
+              <span className="section__row-left">{book.title.toLowerCase()}</span>
+              <span className="section__row-right">{book.author.toLowerCase()}</span>
+            </div>
+          ))}
+          <Link href="/books" className="section__link">
+            all books →
+          </Link>
+        </section>
       </div>
-
-      <FadeIn className="home-hero__rule-wrap" delay={0.1}>
-        <hr className="home-essay__rule" />
-      </FadeIn>
-
-      <RevealStaggerGroup className="home-index">
-        <RevealStaggerItem className="home-index__section">
-          <h2 className="home-index__label">Reflections</h2>
-          <div>
-            {[
-              { title: "Starting this site", meta: "Mar 2026" },
-              { title: "A small lesson", meta: "Mar 2026" },
-            ].map((item) => (
-              <div key={item.title} className="home-index__row">
-                <span style={{ color: "var(--fg)" }}>{item.title}</span>
-                <span style={{ color: "var(--muted)" }}>{item.meta}</span>
-              </div>
-            ))}
-          </div>
-          <MotionArrowLink href="/reflections" className="home-index__link">
-            View all reflections →
-          </MotionArrowLink>
-        </RevealStaggerItem>
-
-        <RevealStaggerItem className="home-index__section">
-          <h2 className="home-index__label">Recently read</h2>
-          <div>
-            {[
-              { title: "Clean Code", meta: "Robert C. Martin" },
-              { title: "Atomic Habits", meta: "James Clear" },
-            ].map((item) => (
-              <div key={item.title} className="home-index__row">
-                <span style={{ color: "var(--fg)" }}>{item.title}</span>
-                <span style={{ color: "var(--muted)" }}>{item.meta}</span>
-              </div>
-            ))}
-          </div>
-          <MotionArrowLink href="/books" className="home-index__link">
-            View all books →
-          </MotionArrowLink>
-        </RevealStaggerItem>
-
-        <RevealStaggerItem className="home-index__section">
-          <h2 className="home-index__label">Finds</h2>
-          <div>
-            {[
-              { title: "How to Think for Yourself - Paul Graham", meta: "paulgraham.com" },
-              { title: "The Cook and the Chef - Wait But Why", meta: "waitbutwhy.com" },
-            ].map((item) => (
-              <div key={item.title} className="home-index__row">
-                <span style={{ color: "var(--fg)" }}>{item.title}</span>
-                <span style={{ color: "var(--muted)" }}>{item.meta}</span>
-              </div>
-            ))}
-          </div>
-          <MotionArrowLink href="/finds" className="home-index__link">
-            View all finds →
-          </MotionArrowLink>
-        </RevealStaggerItem>
-      </RevealStaggerGroup>
     </>
   );
 }

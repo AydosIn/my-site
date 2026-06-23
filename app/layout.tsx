@@ -2,12 +2,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Navbar } from "@components/Navbar";
 import { Footer } from "@components/Footer";
-import { ThemeProvider } from "@components/ThemeProvider";
-import { MotionProvider } from "@components/motion/MotionProvider";
-import { PageTransition } from "@components/motion/PageTransition";
 import { Analytics } from "@vercel/analytics/react";
 import { site } from "@data/site";
-import { inter, syne } from "./fonts";
+import { jetbrainsMono, bitcountGrid, pressStart } from "./fonts";
 
 export const metadata: Metadata = {
   title: site.title,
@@ -16,29 +13,18 @@ export const metadata: Metadata = {
     icon: "/icon.svg",
   },
   verification: {
-    google: "q2cNtrHN00O2fgyjc2Q4-pwMb2IOqgeFakf5irbE6xs",
+    google: "q2cNtr.gbapal00O2fgyjc2Q4-pwMb2IOqgeFakf5irbE6xs",
   },
 };
 
-const themeInitScript = `(function(){try{var t=localStorage.getItem("aydos-theme");document.documentElement.classList.toggle("dark",t==="dark")}catch(e){}})();`;
-
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${inter.variable} ${syne.variable}`} suppressHydrationWarning>
-      <head>
-        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
-      </head>
+    <html lang="en" className={`${jetbrainsMono.variable} ${bitcountGrid.variable} ${pressStart.variable}`}>
       <body>
-        <ThemeProvider>
-          <MotionProvider>
-            <Navbar />
-            <main className="page-root">
-              <PageTransition>{children}</PageTransition>
-            </main>
-            <Footer />
-            <Analytics />
-          </MotionProvider>
-        </ThemeProvider>
+        <Navbar />
+        <main className="page-root">{children}</main>
+        <Footer />
+        <Analytics />
       </body>
     </html>
   );

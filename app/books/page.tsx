@@ -1,7 +1,7 @@
 import { books } from "@data/books";
 import { BooksList } from "@components/BooksList";
 
-export const metadata = { title: "Books" };
+export const metadata = { title: "books" };
 
 export default function BooksPage() {
   return (
