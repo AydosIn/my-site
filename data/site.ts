@@ -3,6 +3,7 @@ export const site = {
   description: "Personal website of Aydos Inyatdinov — engineer, critical thinker, and reader.",
   url: "https://aydosinyatdinov.dev",
   ownerName: "Aydos Inyatdinov",
+  searchSiteName: "Aydos Inyatdinov · aut · 18yo · data science · aisha ai",
   devFacts: ["aut", "18yo", "data science", "aisha ai"],
   homeQuote: "whoami? builder? overthinker? learner? student? or just an npc?",
   homeStatus:
