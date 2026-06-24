@@ -11,6 +11,7 @@ export const bitcountGrid = Bitcount_Grid_Double({
   subsets: ["latin"],
   variable: "--font-display",
   display: "swap",
+  adjustFontFallback: false,
 });
 
 export const pressStart = Press_Start_2P({
