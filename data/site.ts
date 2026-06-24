@@ -19,7 +19,7 @@ export const site = {
   },
 };
 
-export const emailMailto = `mailto:${site.contact.email}?subject=${encodeURIComponent("hello")}`;
+export const gmailComposeUrl = `https://mail.google.com/mail/u/0/?fs=1&to=${encodeURIComponent(site.contact.email)}&su=${encodeURIComponent("hello")}&body=&tf=cm`;
 
 export const homeContactLinks = [
   { label: "telegram", href: site.contact.telegram },
@@ -27,5 +27,5 @@ export const homeContactLinks = [
   { label: "github", href: site.contact.github },
   { label: "linkedin", href: site.contact.linkedin },
   { label: "x", href: site.contact.x || null },
-  { label: "email", href: emailMailto, external: false },
+  { label: "email", href: gmailComposeUrl },
 ] as const;

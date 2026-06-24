@@ -18,8 +18,8 @@ export function HomeBottomInfo() {
               {item.href ? (
                 <a
                   href={item.href}
-                  target={item.label === "email" ? undefined : "_blank"}
-                  rel={item.label === "email" ? undefined : "noreferrer"}
+                  target="_blank"
+                  rel="noreferrer"
                   className="home-details__link"
                   {...(item.label === "email"
                     ? { title: `email ${site.contact.email}` }
