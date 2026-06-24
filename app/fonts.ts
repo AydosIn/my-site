@@ -2,7 +2,7 @@ import { JetBrains_Mono, Bitcount_Grid_Double, Press_Start_2P } from "next/font/
 
 export const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
-  weight: ["400", "500"],
+  weight: ["400", "500", "600", "700"],
   variable: "--font-mono",
   display: "swap",
 });
