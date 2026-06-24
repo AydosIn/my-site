@@ -350,13 +350,36 @@ a:hover {
 }
 
 /* Books */
+.books-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.books-page__header {
+  width: 100%;
+  max-width: 360px;
+  text-align: center;
+}
+
+.books-page__search {
+  width: 100%;
+  max-width: 360px;
+  display: flex;
+  justify-content: center;
+}
+
+.books-page__home {
+  margin-top: 40px;
+}
+
 .books-search {
   margin-bottom: 32px;
 }
 
 .books-search__input {
   width: 100%;
-  max-width: 320px;
+  max-width: 360px;
   padding: 6px 10px;
   font-family: var(--font-mono), monospace;
   font-size: 12px;
@@ -375,54 +398,58 @@ a:hover {
   border-color: var(--dim);
 }
 
-.book-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 48px;
-  padding: 8px 0;
-  border-bottom: 0.5px solid var(--border);
+.books-list {
   width: 100%;
+  max-width: 360px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.book-row:last-child {
+.book-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  padding: 36px 0;
+  border-bottom: 0.5px solid var(--border);
+}
+
+.book-card:last-child {
   border-bottom: none;
 }
 
-.book-row__main {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  min-width: 0;
-}
-
-.book-row__cover {
-  width: 36px;
-  height: 52px;
+.book-card__cover {
+  width: 100px;
+  height: 150px;
   object-fit: cover;
-  border-radius: 3px;
+  border-radius: 4px;
   flex-shrink: 0;
   border: 0.5px solid var(--border-nav);
+  margin-bottom: 16px;
 }
 
-.book-row__cover-fallback {
-  width: 36px;
-  height: 52px;
-  border-radius: 3px;
+.book-card__cover-fallback {
+  width: 100px;
+  height: 150px;
+  border-radius: 4px;
   flex-shrink: 0;
-  border: 0.5px solid var(--border-nav);
-  background: var(--border);
+  border: 0.5px solid var(--dim);
+  background: #151515;
+  margin-bottom: 16px;
 }
 
-.book-row__title {
+.book-card__title {
   color: var(--fg);
-  font-size: 13px;
+  font-size: 14px;
+  font-weight: 400;
+  margin-bottom: 6px;
 }
 
-.book-row__author {
+.book-card__author {
   color: var(--dim);
   font-size: 12px;
-  flex-shrink: 0;
 }
 
 /* Reflection post */
@@ -537,15 +564,10 @@ a:hover {
     gap: 24px;
   }
 
-  .section__row,
-  .book-row {
+  .section__row {
     flex-direction: column;
     align-items: flex-start;
     gap: 4px;
-  }
-
-  .book-row__main {
-    width: 100%;
   }
 
   .section__row-right {

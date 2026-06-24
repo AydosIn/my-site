@@ -1,37 +1,35 @@
 "use client";
 
-import Image from "next/image";
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import type { Book } from "@data/books";
 
-function getCoverUrl(title: string) {
-  return `https://covers.openlibrary.org/b/title/${encodeURIComponent(title)}-M.jpg`;
+function getCoverUrl(book: Book) {
+  if (book.isbn) {
+    return `https://covers.openlibrary.org/b/isbn/${book.isbn}-L.jpg`;
+  }
+  return `https://covers.openlibrary.org/b/title/${encodeURIComponent(book.title)}-L.jpg`;
 }
 
-function BookRow({ book }: { book: Book }) {
+function BookCard({ book }: { book: Book }) {
   const [coverFailed, setCoverFailed] = useState(false);
 
   return (
-    <div className="book-row">
-      <div className="book-row__main">
-        {!coverFailed ? (
-          <Image
-            src={getCoverUrl(book.title)}
-            alt=""
-            width={36}
-            height={52}
-            className="book-row__cover"
-            loading="lazy"
-            onError={() => setCoverFailed(true)}
-          />
-        ) : (
-          <div className="book-row__cover-fallback" aria-hidden="true" />
-        )}
-        <span className="book-row__title">{book.title.toLowerCase()}</span>
-      </div>
-      <span className="book-row__author">{book.author.toLowerCase()}</span>
-    </div>
+    <article className="book-card">
+      {!coverFailed ? (
+        <img
+          src={getCoverUrl(book)}
+          alt=""
+          className="book-card__cover"
+          loading="lazy"
+          onError={() => setCoverFailed(true)}
+        />
+      ) : (
+        <div className="book-card__cover-fallback" aria-hidden="true" />
+      )}
+      <h2 className="book-card__title">{book.title.toLowerCase()}</h2>
+      <p className="book-card__author">{book.author.toLowerCase()}</p>
+    </article>
   );
 }
 
@@ -47,13 +45,13 @@ export function BooksList({ books }: { books: Book[] }) {
   }, [books, query]);
 
   return (
-    <>
-      <header className="page-header">
+    <div className="books-page">
+      <header className="page-header books-page__header">
         <p className="page-header__comment">// books</p>
         <h1 className="page-header__title">reading list</h1>
       </header>
 
-      <div className="books-search">
+      <div className="books-search books-page__search">
         <input
           type="search"
           value={query}
@@ -63,13 +61,15 @@ export function BooksList({ books }: { books: Book[] }) {
         />
       </div>
 
-      {filtered.map((book) => (
-        <BookRow key={book.id} book={book} />
-      ))}
+      <div className="books-list">
+        {filtered.map((book) => (
+          <BookCard key={book.id} book={book} />
+        ))}
+      </div>
 
-      <Link href="/" className="section__link" style={{ marginTop: "40px" }}>
+      <Link href="/" className="section__link books-page__home">
         ← home
       </Link>
-    </>
+    </div>
   );
 }
