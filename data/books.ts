@@ -113,4 +113,18 @@ export const books: Book[] = [
     takeaway: "Strip every sentence to its cleanest components. Clutter is the enemy of communication.",
     tags: ["writing", "craft"]
   },
+  {
+    id: "b-16",
+    title: "The Mom Test",
+    author: "Rob Fitzpatrick",
+    takeaway: "Talk about their life, not your idea. Good customer conversations reveal truth, not compliments.",
+    tags: ["startups", "product"]
+  },
+  {
+    id: "b-17",
+    title: "The Lean Startup",
+    author: "Eric Ries",
+    takeaway: "Build-measure-learn beats planning in the dark. Validated learning is the unit of progress.",
+    tags: ["startups", "product"]
+  },
 ];

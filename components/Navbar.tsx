@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { site } from "@data/site";
 
 const navItems = [
-  { label: "cv", href: site.cvUrl, external: true },
+  { label: "cv", href: site.cvUrl },
   { label: "projects", href: "/projects" },
   { label: "books", href: "/books" },
   { label: "reflections", href: "/reflections" },

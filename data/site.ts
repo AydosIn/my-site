@@ -8,7 +8,7 @@ export const site = {
   homeStatus:
     "learning/building as much as possible, seeking people who are interested in tech/ai.",
   homeLocation: "tashkent, uzbekistan & nukus, karakalpakstan.",
-  cvUrl: "/cv.pdf",
+  cvUrl: "/cv",
   contact: {
     telegram: "https://t.me/aydosffr",
     instagram: "https://www.instagram.com/aydos.inyatdinov/",

@@ -1,8 +1,39 @@
 "use client";
 
+import Image from "next/image";
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import type { Book } from "@data/books";
+
+function getCoverUrl(title: string) {
+  return `https://covers.openlibrary.org/b/title/${encodeURIComponent(title)}-M.jpg`;
+}
+
+function BookRow({ book }: { book: Book }) {
+  const [coverFailed, setCoverFailed] = useState(false);
+
+  return (
+    <div className="book-row">
+      <div className="book-row__main">
+        {!coverFailed ? (
+          <Image
+            src={getCoverUrl(book.title)}
+            alt=""
+            width={36}
+            height={52}
+            className="book-row__cover"
+            loading="lazy"
+            onError={() => setCoverFailed(true)}
+          />
+        ) : (
+          <div className="book-row__cover-fallback" aria-hidden="true" />
+        )}
+        <span className="book-row__title">{book.title.toLowerCase()}</span>
+      </div>
+      <span className="book-row__author">{book.author.toLowerCase()}</span>
+    </div>
+  );
+}
 
 export function BooksList({ books }: { books: Book[] }) {
   const [query, setQuery] = useState("");
@@ -33,10 +64,7 @@ export function BooksList({ books }: { books: Book[] }) {
       </div>
 
       {filtered.map((book) => (
-        <div key={book.id} className="book-row">
-          <span className="book-row__title">{book.title.toLowerCase()}</span>
-          <span className="book-row__author">{book.author.toLowerCase()}</span>
-        </div>
+        <BookRow key={book.id} book={book} />
       ))}
 
       <Link href="/" className="section__link" style={{ marginTop: "40px" }}>
