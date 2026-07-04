@@ -1,5 +1,15 @@
 @import "tailwindcss";
 
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-card: var(--card);
+  --color-border: var(--border);
+  --color-terminal: var(--terminal);
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -11,10 +21,16 @@
   --fg: #c8c8c8;
   --dim: #444444;
   --dimmer: #333333;
-  --border: #111111;
-  --border-nav: #222222;
+  --border: #1f1f1f;
+  --border-nav: #2a2a2a;
   --accent: #3d7a3d;
+  --terminal: #4ade80;
   --page-x: 64px;
+  --background: #000000;
+  --foreground: #c8c8c8;
+  --muted: #141414;
+  --muted-foreground: #666666;
+  --card: #0d0d0d;
 }
 
 html {
@@ -450,6 +466,50 @@ a:hover {
 .book-card__author {
   color: var(--dim);
   font-size: 12px;
+}
+
+/* Reflections list */
+.reflections-list {
+  list-style: none;
+  max-width: 42rem;
+}
+
+.reflections-list__item {
+  padding: 20px 0;
+  border-bottom: 0.5px solid var(--border);
+}
+
+.reflections-list__item:first-child {
+  padding-top: 0;
+}
+
+.reflections-list__link {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+}
+
+.reflections-list__title {
+  font-size: 14px;
+  color: var(--fg);
+}
+
+.reflections-list__link:hover .reflections-list__title {
+  text-decoration: underline;
+}
+
+.reflections-list__date {
+  font-size: 11px;
+  color: var(--dim);
+  flex-shrink: 0;
+}
+
+.reflections-list__excerpt {
+  margin-top: 8px;
+  font-size: 12px;
+  color: var(--dim);
+  line-height: 1.6;
 }
 
 /* Reflection post */
