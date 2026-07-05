@@ -1,4 +1,4 @@
-import Link from "next/link";
+import type { Metadata } from "next";
 import { ReflectionPostContent } from "@components/ReflectionPostContent";
 import { getAllReflections, getReflectionBySlug } from "@lib/reflections";
 
@@ -7,6 +7,30 @@ type Props = { params: Promise<{ slug: string }> };
 export async function generateStaticParams() {
   const posts = await getAllReflections();
   return posts.map((p) => ({ slug: p.slug }));
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  try {
+    const post = await getReflectionBySlug(slug);
+    const title = post.title.toLowerCase();
+    const description = post.excerpt || undefined;
+    const url = `/reflections/${post.slug}`;
+    return {
+      title,
+      description,
+      alternates: { canonical: url },
+      openGraph: {
+        type: "article",
+        title,
+        description,
+        url,
+        publishedTime: post.date || undefined,
+      },
+    };
+  } catch {
+    return {};
+  }
 }
 
 function formatDate(date: string) {

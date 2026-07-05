@@ -4,22 +4,26 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import type { Book } from "@data/books";
 
-function getCoverUrl(book: Book) {
-  if (book.isbn) {
-    return `https://covers.openlibrary.org/b/isbn/${book.isbn}-L.jpg`;
-  }
-  return `https://covers.openlibrary.org/b/title/${encodeURIComponent(book.title)}-L.jpg`;
+// Only ISBN-based covers are reliable. `?default=false` makes OpenLibrary
+// return a 404 for missing covers instead of a blank 1x1 image (HTTP 200),
+// so the onError fallback actually fires.
+function getCoverUrl(book: Book): string | null {
+  if (!book.isbn) return null;
+  return `https://covers.openlibrary.org/b/isbn/${book.isbn}-L.jpg?default=false`;
 }
 
 function BookCard({ book }: { book: Book }) {
   const [coverFailed, setCoverFailed] = useState(false);
+  const coverUrl = getCoverUrl(book);
 
   return (
     <article className="book-card">
-      {!coverFailed ? (
+      {coverUrl && !coverFailed ? (
         <img
-          src={getCoverUrl(book)}
-          alt=""
+          src={coverUrl}
+          alt={`cover of ${book.title}`}
+          width={100}
+          height={150}
           className="book-card__cover"
           loading="lazy"
           onError={() => setCoverFailed(true)}
@@ -47,7 +51,7 @@ export function BooksList({ books }: { books: Book[] }) {
   return (
     <div className="books-page">
       <header className="page-header books-page__header">
-        <p className="page-header__comment">// books</p>
+        <p className="page-header__comment">{"// books"}</p>
         <h1 className="page-header__title">reading list</h1>
       </header>
 
@@ -57,6 +61,7 @@ export function BooksList({ books }: { books: Book[] }) {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="search..."
+          aria-label="search books by title, author, or tag"
           className="books-search__input"
         />
       </div>

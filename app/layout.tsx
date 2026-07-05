@@ -7,8 +7,19 @@ import { site } from "@data/site";
 import { jetbrainsMono, bitcountGrid, pressStart } from "./fonts";
 
 export const metadata: Metadata = {
-  title: site.title,
+  metadataBase: new URL(site.url),
+  title: {
+    default: site.title,
+    template: `%s · ${site.ownerName.toLowerCase()}`,
+  },
   description: site.description,
+  alternates: {
+    canonical: "/",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
   openGraph: {
     siteName: site.searchSiteName,
     type: "website",

@@ -6,7 +6,7 @@ export default function ProjectsPage() {
   return (
     <div className="page-shell">
       <header className="page-header">
-        <p className="page-header__comment">// projects</p>
+        <p className="page-header__comment">{"// projects"}</p>
         <h1 className="page-header__title">building</h1>
       </header>
 
