@@ -33,62 +33,63 @@ async function ensureContentDir() {
   }
 }
 
+// Parse + render every markdown file at most once per process. Both the list
+// and the per-slug lookup share this cache, so generating N static pages no
+// longer re-reads and re-renders every file N times.
+let cache: Promise<ReflectionFull[]> | null = null;
+
+async function loadAll(): Promise<ReflectionFull[]> {
+  if (cache) return cache;
+
+  cache = (async () => {
+    await ensureContentDir();
+    const files = await fs.readdir(CONTENT_DIR);
+    const posts: ReflectionFull[] = [];
+
+    for (const file of files) {
+      if (!file.endsWith(".md")) continue;
+      const fullPath = path.join(CONTENT_DIR, file);
+      const raw = await fs.readFile(fullPath, "utf8");
+      const { data, content } = matter(raw);
+      const processed = await remark().use(html).process(content);
+      const htmlString = String(processed);
+      const fallbackTitle = file.replace(/\.md$/, "");
+      const slug =
+        typeof data.slug === "string" && data.slug.length > 0
+          ? data.slug
+          : toSlug((data.title as string) ?? fallbackTitle);
+
+      posts.push({
+        title: (data.title as string) ?? fallbackTitle,
+        date: normalizeDate(data.date),
+        tags: (data.tags as string[]) ?? [],
+        slug,
+        html: htmlString,
+        excerpt: excerptFromHtml(htmlString),
+      });
+    }
+
+    return posts.sort((a, b) => (a.date > b.date ? -1 : 1));
+  })();
+
+  return cache;
+}
+
 export async function getAllReflections(): Promise<ReflectionMeta[]> {
-  await ensureContentDir();
-  const files = await fs.readdir(CONTENT_DIR);
-  const posts: ReflectionMeta[] = [];
-
-  for (const file of files) {
-    if (!file.endsWith(".md")) continue;
-    const fullPath = path.join(CONTENT_DIR, file);
-    const raw = await fs.readFile(fullPath, "utf8");
-    const { data, content } = matter(raw);
-    const processed = await remark().use(html).process(content);
-    const htmlString = String(processed);
-    const slug =
-      typeof data.slug === "string" && data.slug.length > 0
-        ? data.slug
-        : toSlug((data.title as string) ?? file.replace(/\.md$/, ""));
-
-    posts.push({
-      title: (data.title as string) ?? file.replace(/\.md$/, ""),
-      date: normalizeDate(data.date),
-      tags: (data.tags as string[]) ?? [],
-      slug,
-      excerpt: excerptFromHtml(htmlString)
-    });
-  }
-
-  return posts.sort((a, b) => (a.date > b.date ? -1 : 1));
+  const posts = await loadAll();
+  // Return metadata only (the rendered html is only needed on the post page).
+  return posts.map((post) => ({
+    title: post.title,
+    date: post.date,
+    tags: post.tags,
+    slug: post.slug,
+    excerpt: post.excerpt,
+  }));
 }
 
 export async function getReflectionBySlug(slug: string): Promise<ReflectionFull> {
-  await ensureContentDir();
-  const files = await fs.readdir(CONTENT_DIR);
-
-  for (const file of files) {
-    if (!file.endsWith(".md")) continue;
-    const fullPath = path.join(CONTENT_DIR, file);
-    const raw = await fs.readFile(fullPath, "utf8");
-    const { data, content } = matter(raw);
-    const computedSlug =
-      typeof data.slug === "string" && data.slug.length > 0
-        ? data.slug
-        : toSlug((data.title as string) ?? file.replace(/\.md$/, ""));
-
-    if (computedSlug === slug) {
-      const processed = await remark().use(html).process(content);
-      const htmlString = String(processed);
-      return {
-        title: (data.title as string) ?? file.replace(/\.md$/, ""),
-        date: normalizeDate(data.date),
-        tags: (data.tags as string[]) ?? [],
-        slug: computedSlug,
-        html: htmlString,
-        excerpt: excerptFromHtml(htmlString)
-      };
-    }
-  }
-
-  throw new Error(`Reflection not found: ${slug}`);
+  const posts = await loadAll();
+  const post = posts.find((p) => p.slug === slug);
+  if (!post) throw new Error(`Reflection not found: ${slug}`);
+  return post;
 }

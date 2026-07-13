@@ -15,7 +15,7 @@ export default async function ReflectionsPage() {
   return (
     <div className="page-shell">
       <header className="page-header">
-        <p className="page-header__comment">// reflections</p>
+        <p className="page-header__comment">{"// reflections"}</p>
         <h1 className="page-header__title">writing</h1>
       </header>
 

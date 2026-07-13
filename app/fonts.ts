@@ -1,4 +1,4 @@
-import { JetBrains_Mono, Bitcount_Grid_Double, Press_Start_2P } from "next/font/google";
+import { JetBrains_Mono, Bitcount_Grid_Double } from "next/font/google";
 
 export const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
@@ -12,11 +12,4 @@ export const bitcountGrid = Bitcount_Grid_Double({
   variable: "--font-display",
   display: "swap",
   adjustFontFallback: false,
-});
-
-export const pressStart = Press_Start_2P({
-  subsets: ["latin"],
-  weight: "400",
-  variable: "--font-press",
-  display: "swap",
 });

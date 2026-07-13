@@ -4,11 +4,22 @@ import { Navbar } from "@components/Navbar";
 import { Footer } from "@components/Footer";
 import { Analytics } from "@vercel/analytics/react";
 import { site } from "@data/site";
-import { jetbrainsMono, bitcountGrid, pressStart } from "./fonts";
+import { jetbrainsMono, bitcountGrid } from "./fonts";
 
 export const metadata: Metadata = {
-  title: site.title,
+  metadataBase: new URL(site.url),
+  title: {
+    default: site.title,
+    template: `%s · ${site.ownerName.toLowerCase()}`,
+  },
   description: site.description,
+  alternates: {
+    canonical: "/",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
   openGraph: {
     siteName: site.searchSiteName,
     type: "website",
@@ -29,7 +40,7 @@ const websiteJsonLd = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${jetbrainsMono.variable} ${bitcountGrid.variable} ${pressStart.variable}`}>
+    <html lang="en" className={`${jetbrainsMono.variable} ${bitcountGrid.variable}`}>
       <body>
         <script
           type="application/ld+json"
