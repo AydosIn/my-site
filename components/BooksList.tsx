@@ -33,6 +33,9 @@ function BookCard({ book }: { book: Book }) {
       )}
       <h2 className="book-card__title">{book.title.toLowerCase()}</h2>
       <p className="book-card__author">{book.author.toLowerCase()}</p>
+      {book.takeaway && (
+        <p className="book-card__takeaway">{book.takeaway.toLowerCase()}</p>
+      )}
     </article>
   );
 }

@@ -1,6 +1,5 @@
 "use client";
 
-import { m, useReducedMotion } from "framer-motion";
 import {
   cvAbout,
   cvEducation,
@@ -10,62 +9,12 @@ import {
   cvSkills,
   type CvEntry,
 } from "@data/cv";
-import { MOTION } from "@lib/motion";
 import { MotionProvider } from "@components/motion/MotionProvider";
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 8 },
-  visible: { opacity: 1, y: 0 },
-};
-
-function Group({ children }: { children: React.ReactNode }) {
-  const reduced = useReducedMotion();
-
-  return (
-    <m.div
-      className="cv"
-      initial="hidden"
-      animate="visible"
-      variants={{
-        hidden: {},
-        visible: {
-          transition: {
-            staggerChildren: reduced ? 0 : 0.06,
-            delayChildren: reduced ? 0 : 0.04,
-          },
-        },
-      }}
-    >
-      {children}
-    </m.div>
-  );
-}
-
-function Item({
-  children,
-  className,
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) {
-  const reduced = useReducedMotion();
-
-  return (
-    <m.div
-      className={className}
-      variants={{
-        hidden: reduced ? fadeUp.visible : fadeUp.hidden,
-        visible: { ...fadeUp.visible, transition: MOTION.medium },
-      }}
-    >
-      {children}
-    </m.div>
-  );
-}
+import { RevealGroup, RevealItem } from "@components/motion/Reveal";
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <Item className="cv-section">
+    <RevealItem className="cv-section">
       <div className="cv-section__head">
         <h2 className="cv-section__title">
           <span className="cv-section__slash">{"//"}</span> {title}
@@ -73,7 +22,7 @@ function Section({ title, children }: { title: string; children: React.ReactNode
         <span className="cv-section__rule" aria-hidden="true" />
       </div>
       {children}
-    </Item>
+    </RevealItem>
   );
 }
 
@@ -93,22 +42,22 @@ function Entry({ entry }: { entry: CvEntry }) {
 export function CvContent() {
   return (
     <MotionProvider>
-      <Group>
-        <Item>
+      <RevealGroup className="cv">
+        <RevealItem>
           <p className="cv-prompt">
             <span className="cv-prompt__path">~/aydos $</span> cat resume.md
             <span className="hero__cursor" aria-hidden="true" />
           </p>
-        </Item>
+        </RevealItem>
 
-        <Item>
+        <RevealItem>
           <h1 className="cv-name">{cvHeader.name}</h1>
-        </Item>
-        <Item>
+        </RevealItem>
+        <RevealItem>
           <p className="cv-role">{cvHeader.role}</p>
-        </Item>
+        </RevealItem>
 
-        <Item>
+        <RevealItem>
           <div className="cv-meta">
             <span className="cv-meta__item">
               <span className="cv-meta__dot" aria-hidden="true" /> {cvHeader.status}
@@ -116,7 +65,7 @@ export function CvContent() {
             <span className="cv-meta__item">{cvHeader.location}</span>
             <span className="cv-meta__item">{cvHeader.timezone}</span>
           </div>
-        </Item>
+        </RevealItem>
 
         <Section title="about">
           <p className="cv-about">{cvAbout}</p>
@@ -167,7 +116,7 @@ export function CvContent() {
             })}
           </div>
         </Section>
-      </Group>
+      </RevealGroup>
     </MotionProvider>
   );
 }

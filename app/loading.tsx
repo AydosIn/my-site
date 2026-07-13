@@ -1,7 +1,10 @@
 export default function Loading() {
   return (
     <div className="page-shell">
-      <p style={{ color: "var(--dim)", fontSize: "12px" }}>loading...</p>
+      <p className="term-cmd">
+        <span className="term-cmd__path">~/aydos $</span>
+        <span className="hero__cursor" aria-hidden="true" />
+      </p>
     </div>
   );
 }

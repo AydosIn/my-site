@@ -15,7 +15,7 @@ function ProjectCard({ project }: { project: Project }) {
           />
         ) : (
           <span className="project-card__thumb-label" aria-hidden="true">
-            screenshot
+            no screenshot yet
           </span>
         )}
       </div>
@@ -23,6 +23,15 @@ function ProjectCard({ project }: { project: Project }) {
       <div className="project-card__body">
         <div className="project-card__top">
           <h2 className="project-card__name">{project.name}</h2>
+          <span
+            className={
+              project.status === "live"
+                ? "project-card__status project-card__status--live"
+                : "project-card__status"
+            }
+          >
+            {project.status}
+          </span>
           {project.href && (
             <span className="project-card__arrow" aria-hidden="true">
               ↗
@@ -37,9 +46,7 @@ function ProjectCard({ project }: { project: Project }) {
             </span>
           ))}
         </div>
-        <span className="project-card__visit">
-          {project.href ? "visit →" : "link coming soon"}
-        </span>
+        {project.href && <span className="project-card__visit">visit →</span>}
       </div>
     </>
   );

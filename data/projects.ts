@@ -3,6 +3,7 @@ export type Project = {
   name: string;
   description: string;
   tags: string[];
+  status: "live" | "in progress";
   /** External link to the live project. Omit until you have one. */
   href?: string;
   /** Screenshot path under /public (e.g. "/projects/landing.png"). Omit for a placeholder. */
@@ -16,6 +17,7 @@ export const projects: Project[] = [
     description:
       "this site — a terminal-styled personal home, blog, and reading list. designed and built from scratch.",
     tags: ["next.js", "typescript", "tailwind"],
+    status: "live",
     href: "https://aydosinyatdinov.dev",
   },
   {
@@ -24,6 +26,7 @@ export const projects: Project[] = [
     description:
       "a landing page hand-coded in pure html & css — layout, styling, and responsiveness done by hand.",
     tags: ["html", "css"],
+    status: "in progress",
     // href: add the live url
   },
   {
@@ -32,6 +35,7 @@ export const projects: Project[] = [
     description:
       "a community project around tech events — bringing people together to learn and build.",
     tags: ["community", "events"],
+    status: "in progress",
     // href: add the project link
   },
 ];
