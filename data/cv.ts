@@ -13,7 +13,6 @@ export type CvLink = {
 export const cvHeader = {
   name: "aydos inyatdinov",
   role: "project manager at aisha ai",
-  status: "available for interesting work",
   location: "tashkent, uz",
   timezone: "asia/tashkent",
 };

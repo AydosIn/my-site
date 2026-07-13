@@ -59,9 +59,6 @@ export function CvContent() {
 
         <RevealItem>
           <div className="cv-meta">
-            <span className="cv-meta__item">
-              <span className="cv-meta__dot" aria-hidden="true" /> {cvHeader.status}
-            </span>
             <span className="cv-meta__item">{cvHeader.location}</span>
             <span className="cv-meta__item">{cvHeader.timezone}</span>
           </div>
