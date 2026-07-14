@@ -1,10 +1,12 @@
 import Link from "next/link";
-import { projects } from "@data/projects";
 import { ProjectsList } from "@components/ProjectsList";
+import { getProjects } from "@lib/projects";
 
 export const metadata = { title: "projects" };
 
 export default function ProjectsPage() {
+  const projects = getProjects();
+
   return (
     <div className="page-shell">
       <header className="page-header">
