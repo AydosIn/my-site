@@ -982,6 +982,69 @@ a.project-card:hover .project-card__visit {
   color: var(--terminal);
 }
 
+/* ============ Project detail ============ */
+.project-detail__title-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.project-detail__shot {
+  position: relative;
+  margin-top: 36px;
+  border: 0.5px solid var(--border-nav);
+  border-radius: 10px;
+  overflow: hidden;
+  background: repeating-linear-gradient(
+    45deg,
+    #0e0e0e 0 10px,
+    #0b0b0b 10px 20px
+  );
+  min-height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.project-detail__img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.project-detail__body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 32px;
+}
+
+.project-detail__para {
+  color: var(--fg);
+  font-size: 13.5px;
+  line-height: 1.75;
+  max-width: 68ch;
+}
+
+.project-detail__tags {
+  margin-top: 28px;
+}
+
+.project-detail__visit {
+  display: inline-block;
+  margin-top: 24px;
+  color: var(--terminal);
+  font-size: 13px;
+  border: 0.5px solid var(--accent);
+  border-radius: 6px;
+  padding: 8px 14px;
+  transition: background 0.22s;
+}
+
+.project-detail__visit:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
 .project-more {
   display: flex;
   flex-direction: column;

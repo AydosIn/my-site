@@ -32,16 +32,8 @@ function ProjectRow({ project }: { project: (typeof projects)[number] }) {
     </>
   );
 
-  if (project.href) {
-    return (
-      <a href={project.href} target="_blank" rel="noreferrer" className="term-ls__row">
-        {inner}
-      </a>
-    );
-  }
-
   return (
-    <Link href="/projects" className="term-ls__row">
+    <Link href={`/projects/${project.slug}`} className="term-ls__row">
       {inner}
     </Link>
   );

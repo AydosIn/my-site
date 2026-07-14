@@ -1,9 +1,10 @@
 import Image from "next/image";
+import Link from "next/link";
 import type { Project } from "@data/projects";
 
 function ProjectCard({ project }: { project: Project }) {
-  const inner = (
-    <>
+  return (
+    <Link href={`/projects/${project.slug}`} className="project-card">
       <div className="project-card__thumb">
         {project.image ? (
           <Image
@@ -32,11 +33,9 @@ function ProjectCard({ project }: { project: Project }) {
           >
             {project.status}
           </span>
-          {project.href && (
-            <span className="project-card__arrow" aria-hidden="true">
-              ↗
-            </span>
-          )}
+          <span className="project-card__arrow" aria-hidden="true">
+            →
+          </span>
         </div>
         <p className="project-card__desc">{project.description}</p>
         <div className="project-card__tags">
@@ -46,25 +45,10 @@ function ProjectCard({ project }: { project: Project }) {
             </span>
           ))}
         </div>
-        {project.href && <span className="project-card__visit">visit →</span>}
+        <span className="project-card__visit">read more →</span>
       </div>
-    </>
+    </Link>
   );
-
-  if (project.href) {
-    return (
-      <a
-        href={project.href}
-        target="_blank"
-        rel="noreferrer"
-        className="project-card"
-      >
-        {inner}
-      </a>
-    );
-  }
-
-  return <div className="project-card project-card--static">{inner}</div>;
 }
 
 export function ProjectsList({ projects }: { projects: Project[] }) {
