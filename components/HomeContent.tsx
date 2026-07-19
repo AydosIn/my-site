@@ -106,6 +106,12 @@ export function HomeContent() {
               <span className="hero__cursor" aria-hidden="true" />
             </p>
           </RevealItem>
+
+          <RevealItem className="term-rules">
+            <Link href="/rules" className="term-rules-link">
+              rules &gt;&gt;
+            </Link>
+          </RevealItem>
         </RevealGroup>
       </MotionProvider>
     </div>
