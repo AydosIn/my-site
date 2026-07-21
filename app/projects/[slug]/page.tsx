@@ -56,6 +56,18 @@ export default async function ProjectPage({ params }: Props) {
         </div>
       </header>
 
+      {project.walkthrough && (
+        <aside className="project-walkthrough" aria-label="Upcoming video walkthrough">
+          <span className="project-walkthrough__eyebrow">up next</span>
+          <div className="project-walkthrough__content">
+            <p className="project-walkthrough__title">{project.walkthrough.label}</p>
+            <p className="project-walkthrough__description">
+              {project.walkthrough.description}
+            </p>
+          </div>
+        </aside>
+      )}
+
       <div className="project-detail__shot">
         {project.image ? (
           <Image

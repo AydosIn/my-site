@@ -11,6 +11,11 @@ export type Project = {
   href?: string;
   /** Screenshot path under /public (e.g. "/projects/landing.png"). Omit for a placeholder. */
   image?: string;
+  /** Optional announcement shown prominently above the project screenshot. */
+  walkthrough?: {
+    label: string;
+    description: string;
+  };
 };
 
 export const projects: Project[] = [
@@ -27,6 +32,11 @@ export const projects: Project[] = [
     status: "live",
     href: "https://aydosinyatdinov.dev",
     image: "/projects/personal-website.png",
+    walkthrough: {
+      label: "video walkthrough — coming soon",
+      description:
+        "i’m recording a guided tour of how this project is built — the architecture, component structure, file organization, and a practical review of the code.",
+    },
   },
   {
     slug: "landing-page",
