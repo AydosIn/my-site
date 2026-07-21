@@ -15,6 +15,16 @@ export default function ProjectsPage() {
         <p className="page-header__sub">things i&apos;ve designed, coded, and shipped.</p>
       </header>
 
+      <section className="projects-walkthrough" aria-labelledby="walkthrough-title">
+        <h2 id="walkthrough-title" className="projects-walkthrough__title">
+          Video walkthroughs — coming soon
+        </h2>
+        <p className="projects-walkthrough__description">
+          A walkthrough for every project is on the way. I&apos;ll cover the architecture,
+          project structure, implementation details, and lessons learned while building it.
+        </p>
+      </section>
+
       <ProjectsList projects={projects} />
 
       <Link href="/" className="section__link" style={{ marginTop: "40px" }}>
