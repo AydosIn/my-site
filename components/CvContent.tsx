@@ -1,5 +1,25 @@
 "use client";
 
+import type { IconType } from "react-icons";
+import { FaSlack } from "react-icons/fa6";
+import {
+  SiCss,
+  SiGit,
+  SiGithub,
+  SiHtml5,
+  SiJira,
+  SiLangchain,
+  SiPython,
+} from "react-icons/si";
+import {
+  LuBinary,
+  LuBrainCircuit,
+  LuDatabase,
+  LuMessageSquareText,
+  LuSparkles,
+  LuTags,
+  LuUsers,
+} from "react-icons/lu";
 import {
   cvAbout,
   cvEducation,
@@ -11,6 +31,23 @@ import {
 } from "@data/cv";
 import { MotionProvider } from "@components/motion/MotionProvider";
 import { RevealGroup, RevealItem } from "@components/motion/Reveal";
+
+const skillVisuals: Record<string, { icon: IconType; color: string }> = {
+  python: { icon: SiPython, color: "#ffd343" },
+  html: { icon: SiHtml5, color: "#e34f26" },
+  css: { icon: SiCss, color: "#663399" },
+  git: { icon: SiGit, color: "#f05032" },
+  github: { icon: SiGithub, color: "#f0f0f0" },
+  llm: { icon: LuSparkles, color: "#a78bfa" },
+  metadata: { icon: LuTags, color: "#fb923c" },
+  embeddings: { icon: LuBinary, color: "#60a5fa" },
+  "vector db": { icon: LuDatabase, color: "#2dd4bf" },
+  rag: { icon: SiLangchain, color: "#65c9a5" },
+  "prompt engineering": { icon: LuMessageSquareText, color: "#f59e0b" },
+  jira: { icon: SiJira, color: "#2684ff" },
+  slack: { icon: FaSlack, color: "#e01e5a" },
+  "customer development (custdev)": { icon: LuUsers, color: "#f472b6" },
+};
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
@@ -85,11 +122,36 @@ export function CvContent() {
         </Section>
 
         <Section title="skills">
-          <div className="cv-chips">
-            {cvSkills.map((skill) => (
-              <span key={skill} className="cv-chip">
-                {skill}
-              </span>
+          <div className="cv-skill-groups">
+            {cvSkills.map((group) => (
+              <div key={group.label} className="cv-skill-group">
+                <span className="cv-skill-group__label">{group.label}</span>
+                <div className="cv-chips">
+                  {group.skills.map((skill) => {
+                    const visual = skillVisuals[skill] ?? {
+                      icon: LuBrainCircuit,
+                      color: "currentColor",
+                    };
+                    const SkillIcon = visual.icon;
+
+                    return (
+                      <span
+                        key={skill}
+                        className="cv-chip"
+                        data-tone={group.tone}
+                        style={
+                          {
+                            "--skill-icon": visual.color,
+                          } as React.CSSProperties
+                        }
+                      >
+                        <SkillIcon className="cv-chip__icon" aria-hidden="true" />
+                        {skill}
+                      </span>
+                    );
+                  })}
+                </div>
+              </div>
             ))}
           </div>
         </Section>

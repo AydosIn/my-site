@@ -12,19 +12,19 @@ export type CvLink = {
 
 export const cvHeader = {
   name: "aydos inyatdinov",
-  role: "project manager at aisha ai",
+  role: "ai full-stack engineer",
   location: "tashkent, uz",
   timezone: "asia/tashkent",
 };
 
 export const cvAbout =
-  "18-year-old builder from tashkent. project manager at aisha ai, studying data science at aut tashkent. interested in ai, products, and building things that matter.";
+  "18-year-old student from tashkent, studying data science at aut tashkent. ai enthusiast interested in technology, products, and building things that matter.";
 
 export const cvExperience: CvEntry[] = [
   {
     title: "project manager",
     org: "aisha ai · tashkent, uz",
-    date: "nov 2025 — present",
+    date: "nov 2025 — jul 2026",
   },
 ];
 
@@ -36,18 +36,35 @@ export const cvEducation: CvEntry[] = [
   },
 ];
 
-export const cvSkills = [
-  "python",
-  "html",
-  "css",
-  "git",
-  "github",
-  "ai",
-  "prompt engineering",
-  "problem solving",
-  "decision making",
-  "jira",
-  "slack",
+export type CvSkillGroup = {
+  label: string;
+  tone: "code" | "ai" | "product";
+  skills: string[];
+};
+
+export const cvSkills: CvSkillGroup[] = [
+  {
+    label: "software engineering",
+    tone: "code",
+    skills: ["python", "git", "github", "html", "css"],
+  },
+  {
+    label: "ai / data science",
+    tone: "ai",
+    skills: [
+      "llm",
+      "metadata",
+      "embeddings",
+      "vector db",
+      "rag",
+      "prompt engineering",
+    ],
+  },
+  {
+    label: "project management",
+    tone: "product",
+    skills: ["slack", "jira", "customer development (custdev)"],
+  },
 ];
 
 export const cvLinks: CvLink[] = [
