@@ -6,8 +6,8 @@
 export const now = {
   updated: "july 2026",
   items: [
-    "working at aisha ai — responsible for data",
-    "focusing on software engineering,and improving my russian speaking skills",
+    "studying data science at aut tashkent",
+    "focusing on software engineering and improving my russian speaking skills",
     "building ai agents for different tasks",
     "seeking people who are interested in tech/ai",
   ],
