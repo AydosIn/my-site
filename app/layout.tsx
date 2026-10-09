@@ -5,6 +5,7 @@ import { Footer } from "@components/Footer";
 import { Analytics } from "@vercel/analytics/react";
 import { site } from "@data/site";
 import { jetbrainsMono, bitcountGrid } from "./fonts";
+import { themeInitScript } from "@components/ThemeToggle";
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -40,7 +41,15 @@ const websiteJsonLd = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${jetbrainsMono.variable} ${bitcountGrid.variable}`}>
+    // suppressHydrationWarning: themeInitScript may set data-theme on <html> before React hydrates
+    <html
+      lang="en"
+      className={`${jetbrainsMono.variable} ${bitcountGrid.variable}`}
+      suppressHydrationWarning
+    >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+      </head>
       <body>
         <script
           type="application/ld+json"

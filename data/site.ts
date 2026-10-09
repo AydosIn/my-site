@@ -6,6 +6,7 @@ export const site = {
   searchSiteName: "Aydos Inyatdinov · aut · 18yo · data science · ai enthusiast",
   devFacts: ["aut", "18yo", "data science", "ai enthusiast"],
   homeQuote: "whoami? builder? overthinker? learner? student? or just an npc?",
+  homeTagline: ["data science @ aut", "full stack dev"],
   homeLocation: "tashkent, uzbekistan & nukus, karakalpakstan.",
   cvUrl: "/cv",
   contact: {

@@ -145,3 +145,5 @@ export const books: Book[] = [
     tags: ["startups", "product"]
   },
 ];
+/** The handful shown in the home page's books tab. Order is display order. */
+export const featuredBookIds = ["b-8", "b-16", "b-10", "b-15", "b-2", "b-6"];

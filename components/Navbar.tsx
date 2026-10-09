@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { site } from "@data/site";
+import { ThemeToggle } from "@components/ThemeToggle";
 
 const navItems = [
   { label: "cv", href: site.cvUrl },
@@ -39,6 +40,11 @@ function NavButton({
 }
 
 export function Navbar() {
+  const pathname = usePathname();
+
+  // The home page has its own header (big name + tabs), so the bar would repeat it.
+  if (pathname === "/") return null;
+
   return (
     <header className="navbar-root">
       <div className="navbar-inner">
@@ -60,6 +66,7 @@ export function Navbar() {
           {navItems.map((item) => (
             <NavButton key={item.label} {...item} />
           ))}
+          <ThemeToggle className="navbar-theme" />
         </nav>
       </div>
     </header>
