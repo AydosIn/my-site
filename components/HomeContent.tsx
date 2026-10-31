@@ -293,8 +293,8 @@ export function HomeContent({
           <RevealItem>
             <footer className="home-foot">
               <span>{site.homeLocation}</span>
-              <Link href="/rules" className="home-foot__rules">
-                rules &gt;&gt;
+              <Link href="/photos" className="home-foot__photos">
+                photos &gt;&gt;
               </Link>
             </footer>
           </RevealItem>
