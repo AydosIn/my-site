@@ -1,3 +1,6 @@
+"use client";
+
+import { usePathname } from "next/navigation";
 import { site } from "@data/site";
 
 const socialLinks = [
@@ -7,6 +10,11 @@ const socialLinks = [
 ] as const;
 
 export function Footer() {
+  const pathname = usePathname();
+
+  // The home page has its own footer line under the centred column.
+  if (pathname === "/") return null;
+
   return (
     <footer className="footer-root">
       <div className="footer-inner">
