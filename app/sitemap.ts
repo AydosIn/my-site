@@ -18,6 +18,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.7,
     })),
     { url: `${base}/projects`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
-    { url: `${base}/rules`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.5 },
+    { url: `${base}/photos`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
   ];
 }

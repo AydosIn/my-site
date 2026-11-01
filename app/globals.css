@@ -476,37 +476,413 @@ a {
   margin-top: 4px;
 }
 
-/* ============ Rules ============ */
-.rules-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+/* ============ Page fade (FadeLink) ============ */
+/* While a FadeLink is navigating, the page quickly fades to blank. Keep in sync with FADE_MS. */
+html[data-leaving] body > * {
+  opacity: 0;
+  transition: opacity 0.2s ease-out;
+}
+
+/* ============ Photos (a pile of instants) ============ */
+.photos-stage {
+  --stage-font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", system-ui, sans-serif;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --card-radius: 28px;
+  --card-hairline: rgb(255 255 255 / 0.1);
+  --card-shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 22px 44px -14px rgb(0 0 0 / 0.65);
+  --glow-opacity: 0.5;
+  position: relative;
+  isolation: isolate;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  padding: 76px 24px 40px;
+  /* Flicked cards fly past the screen edge; never let them create a scrollbar. */
+  overflow: clip;
+  font-family: var(--stage-font);
+}
+
+:root[data-theme="light"] .photos-stage {
+  --card-hairline: rgb(0 0 0 / 0.06);
+  --card-shadow: 0 1px 2px rgb(0 0 0 / 0.08), 0 22px 44px -16px rgb(0 0 0 / 0.3);
+  --glow-opacity: 0.22;
+}
+
+.photos-stage__close {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 2;
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  color: var(--bright);
+  background: color-mix(in srgb, var(--fg) 10%, transparent);
+  border-radius: 50%;
+  transition: background-color 0.15s ease, scale 0.15s var(--ease-out);
+  animation: instants-fade 0.3s ease-out both;
+}
+
+.photos-stage__close:hover {
+  background: color-mix(in srgb, var(--fg) 16%, transparent);
+}
+
+.photos-stage__close:active {
+  scale: 0.92;
+}
+
+.photos-stage__close:focus-visible,
+.instants__arrow:focus-visible {
+  outline: 2px solid var(--bright);
+  outline-offset: 3px;
+  border-radius: 50%;
+}
+
+.photos-stage__close svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.photos-stage__empty {
+  font-size: 15px;
+  color: var(--dim);
+}
+
+/* The photo's own colours, washed across the room. */
+.instants-glow {
+  position: fixed;
+  inset: -12%;
+  z-index: -1;
+  opacity: var(--glow-opacity);
+  pointer-events: none;
+  animation: instants-fade 0.8s ease-out both;
+}
+
+.instants-glow__layer {
+  position: absolute;
+  inset: 0;
+  filter: blur(72px) saturate(1.5);
+}
+
+.instants-glow__layer img {
+  object-fit: cover;
+}
+
+.instants {
+  width: max(220px, min(400px, calc(100vw - 48px), calc((100vh - 290px) * 0.8)));
+  width: max(220px, min(400px, calc(100vw - 48px), calc((100dvh - 290px) * 0.8)));
   display: flex;
   flex-direction: column;
-  gap: 28px;
-  max-width: 42rem;
+  align-items: center;
 }
 
-.rules-list__item {
-  display: flex;
-  gap: 12px;
-  align-items: flex-start;
+.instants__deck {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 5;
 }
 
-.rules-list__num {
-  flex-shrink: 0;
-  min-width: 2.5ch;
-  color: var(--terminal);
-  font-size: 13px;
-  line-height: 1.55;
+/* Opening: the pile lands, then the photos underneath fan out from behind the top one. */
+.instants__deck[data-intro] {
+  animation: instants-land 0.45s var(--ease-out) both;
+}
+
+.instants__deck[data-intro] .instant:not([data-depth="0"]) .instant__intro {
+  animation: instants-fan 0.5s var(--ease-out) 0.1s both;
+}
+
+.instant {
+  position: absolute;
+  inset: 0;
+}
+
+.instant[data-depth="0"] {
+  cursor: grab;
+}
+
+.instant[data-depth="0"]:active {
+  cursor: grabbing;
+}
+
+.instant:not([data-depth="0"]) {
+  pointer-events: none;
+}
+
+.instant__intro {
+  position: absolute;
+  inset: 0;
+}
+
+.instant__card {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  /* Keeps the rounded corners clipping the photo while it is transformed (Safari). */
+  isolation: isolate;
+  background: var(--card);
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
+}
+
+/* Hairline edge so dark photos don't melt into a dark page. */
+.instant__card::before,
+.instant__card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.instant__card::before {
+  box-shadow: inset 0 0 0 1px var(--card-hairline);
+}
+
+/* Photos further down the pile sit in a little shadow. */
+.instant__card::after {
+  background: #000;
+  opacity: 0;
+  transition: opacity 0.35s var(--ease-out);
+}
+
+.instant[data-depth="1"] .instant__card::after {
+  opacity: 0.12;
+}
+
+.instant[data-depth="2"] .instant__card::after {
+  opacity: 0.22;
+}
+
+:root[data-theme="light"] .instant[data-depth="1"] .instant__card::after {
+  opacity: 0.06;
+}
+
+:root[data-theme="light"] .instant[data-depth="2"] .instant__card::after {
+  opacity: 0.12;
+}
+
+.instant__img {
+  object-fit: cover;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.instant__img[data-fit="contain"] {
+  object-fit: contain;
+}
+
+/* Instagram-style counter in the photo's corner. */
+.instants__count {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  padding: 3px 9px;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 18px;
+  letter-spacing: 0.02em;
   font-variant-numeric: tabular-nums;
+  color: #fff;
+  background: rgb(18 18 18 / 0.6);
+  border-radius: 999px;
+  pointer-events: none;
+  animation: instants-fade 0.3s ease-out 0.2s both;
 }
 
-.rules-list__quote {
-  margin: 0;
+/* Instagram-style arrows: solid white circles, shown when the photo is hovered. */
+.instants__arrow {
+  position: absolute;
+  top: 50%;
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  color: #1c1c1c;
+  background: rgb(255 255 255 / 0.9);
+  border: 0;
+  border-radius: 50%;
+  box-shadow: 0 2px 10px rgb(0 0 0 / 0.22);
+  cursor: pointer;
+  translate: 0 -50%;
+  opacity: 0;
+  scale: 0.85;
+  transition: opacity 0.2s ease-out, scale 0.2s var(--ease-out), background-color 0.15s ease;
+}
+
+.instants__arrow svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.instants__arrow--prev {
+  left: 12px;
+}
+
+.instants__arrow--next {
+  right: 12px;
+}
+
+.instants__deck:hover .instants__arrow:not(:disabled),
+.instants__arrow:focus-visible {
+  opacity: 1;
+  scale: 1;
+}
+
+@media (hover: none) {
+  .instants__arrow:not(:disabled) {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+.instants__arrow:hover {
+  background: #fff;
+}
+
+.instants__arrow:active {
+  scale: 0.9;
+}
+
+.instants__arrow:disabled {
+  visibility: hidden;
+}
+
+/* Dots sit clear of the edges peeking out under the pile. */
+.instants__dots {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 6px;
+  margin-top: 44px;
+  animation: instants-fade 0.3s ease-out 0.2s both;
+}
+
+.instants__dots li {
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--fg) 30%, transparent);
+  transition: width 0.3s var(--ease-out), background-color 0.3s ease, scale 0.3s var(--ease-out);
+}
+
+.instants__dots li[data-active] {
+  width: 18px;
+  background: var(--bright);
+}
+
+.instants__dots li[data-edge] {
+  scale: 0.6;
+}
+
+.instants__text {
+  margin-top: 16px;
+  min-height: 44px;
+  max-width: 34ch;
+  text-align: center;
+  animation: instants-fade 0.3s ease-out 0.2s both;
+}
+
+.instants__caption {
   font-size: 15px;
-  line-height: 1.55;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
   color: var(--bright);
+  text-wrap: balance;
+}
+
+.instants__meta {
+  margin-top: 3px;
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--dim);
+}
+
+.instants__hint {
+  margin-top: 14px;
+  font-size: 12px;
+  color: var(--dim);
+  animation: instants-fade 0.4s ease-out 0.6s both;
+}
+
+.instants__hint[data-hidden] {
+  animation: instants-fade-out 0.2s ease-out both;
+}
+
+.instants__hint--touch {
+  display: none;
+}
+
+@media (hover: none) {
+  .instants__hint--pointer {
+    display: none;
+  }
+
+  .instants__hint--touch {
+    display: inline;
+  }
+}
+
+@keyframes instants-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes instants-fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes instants-land {
+  from {
+    opacity: 0;
+    translate: 0 16px;
+    scale: 0.97;
+  }
+}
+
+@keyframes instants-fan {
+  from {
+    translate: 0 var(--intro-y, 0);
+    rotate: var(--intro-rotate, 0deg);
+  }
+}
+
+@media (max-width: 480px) {
+  .photos-stage {
+    padding: 72px 16px 32px;
+  }
+
+  .photos-stage__close {
+    top: 16px;
+    left: 16px;
+  }
+
+  .instants {
+    width: max(220px, min(400px, calc(100vw - 32px), calc((100dvh - 270px) * 0.8)));
+  }
+
+  .instants__count {
+    top: 12px;
+    right: 12px;
+  }
 }
 
 /* ============ Page headers ============ */

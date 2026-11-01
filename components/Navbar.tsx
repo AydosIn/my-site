@@ -43,7 +43,8 @@ export function Navbar() {
   const pathname = usePathname();
 
   // The home page has its own header (big name + tabs), so the bar would repeat it.
-  if (pathname === "/") return null;
+  // /photos is a full-screen viewer with nothing around the photo.
+  if (pathname === "/" || pathname === "/photos") return null;
 
   return (
     <header className="navbar-root">

@@ -14,6 +14,7 @@ import { books, featuredBookIds } from "@data/books";
 import { cvEducation, cvExperience } from "@data/cv";
 import { now } from "@data/now";
 import { ThemeToggle } from "@components/ThemeToggle";
+import { FadeLink } from "@components/FadeLink";
 import { BunnyLogo } from "@components/BunnyLogo";
 
 export type HomeReflection = {
@@ -139,6 +140,12 @@ export function HomeContent({
         <Link href="/books" className="home-more">
           all {books.length} books →
         </Link>
+      </Section>
+
+      <Section title="moments i wanted to keep">
+        <FadeLink href="/photos" className="home-more">
+          see the photos →
+        </FadeLink>
       </Section>
 
       <Section title="what i'm doing now">
