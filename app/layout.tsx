@@ -6,6 +6,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { site } from "@data/site";
 import { jetbrainsMono, bitcountGrid } from "./fonts";
 import { themeInitScript } from "@components/ThemeToggle";
+import { FadeReset } from "@components/FadeLink";
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -58,6 +59,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Navbar />
         <main className="page-root">{children}</main>
         <Footer />
+        <FadeReset />
         <Analytics />
       </body>
     </html>

@@ -10,6 +10,7 @@ import { now } from "@data/now";
 import { MotionProvider } from "@components/motion/MotionProvider";
 import { RevealGroup, RevealItem } from "@components/motion/Reveal";
 import { ThemeToggle } from "@components/ThemeToggle";
+import { FadeLink } from "@components/FadeLink";
 
 export type HomeReflection = {
   slug: string;
@@ -293,9 +294,9 @@ export function HomeContent({
           <RevealItem>
             <footer className="home-foot">
               <span>{site.homeLocation}</span>
-              <Link href="/photos" className="home-foot__photos">
+              <FadeLink href="/photos" className="home-foot__photos">
                 photos &gt;&gt;
-              </Link>
+              </FadeLink>
             </footer>
           </RevealItem>
         </RevealGroup>

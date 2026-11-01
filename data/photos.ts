@@ -11,9 +11,18 @@ export type Photo = {
   caption?: string;
   place?: string;
   date?: string;
+  /** "contain" shows the whole image (with bars) instead of filling the 4:5 card. */
+  fit?: "cover" | "contain";
 };
 
 export const photos: Photo[] = [
+  {
+    id: "friends-stage",
+    src: "/photos/photo1.jpg",
+    fit: "contain",
+    alt: "Four friends sitting side by side on the edge of a stage in front of a projector screen",
+    date: "nov 2026",
+  },
   {
     id: "p-1",
     src: "/photos/placeholder-1.svg",
