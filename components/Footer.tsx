@@ -12,8 +12,9 @@ const socialLinks = [
 export function Footer() {
   const pathname = usePathname();
 
+  // The home page has its own footer line under the centred column, and
   // /photos is a full-screen viewer with nothing around the photo.
-  if (pathname === "/photos") return null;
+  if (pathname === "/" || pathname === "/photos") return null;
 
   return (
     <footer className="footer-root">

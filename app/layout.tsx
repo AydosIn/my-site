@@ -4,7 +4,7 @@ import { Navbar } from "@components/Navbar";
 import { Footer } from "@components/Footer";
 import { Analytics } from "@vercel/analytics/react";
 import { site } from "@data/site";
-import { jetbrainsMono, bitcountGrid } from "./fonts";
+import { jetbrainsMono, bitcountGrid, neucha, robotoCondensed } from "./fonts";
 import { themeInitScript } from "@components/ThemeToggle";
 import { FadeReset } from "@components/FadeLink";
 
@@ -45,7 +45,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     // suppressHydrationWarning: themeInitScript may set data-theme on <html> before React hydrates
     <html
       lang="en"
-      className={`${jetbrainsMono.variable} ${bitcountGrid.variable}`}
+      className={`${jetbrainsMono.variable} ${bitcountGrid.variable} ${neucha.variable} ${robotoCondensed.variable}`}
       suppressHydrationWarning
     >
       <head>
