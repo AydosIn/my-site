@@ -29,7 +29,14 @@ function getServerTheme(): Theme {
   return "dark";
 }
 
-export function ThemeToggle({ className }: { className?: string }) {
+export function ThemeToggle({
+  className,
+  variant = "text",
+}: {
+  className?: string;
+  /** "text" shows [ dark ]; "icon" shows a round ◐ button (home page). */
+  variant?: "text" | "icon";
+}) {
   const theme = useSyncExternalStore(subscribe, getTheme, getServerTheme);
 
   function toggle() {
@@ -53,7 +60,7 @@ export function ThemeToggle({ className }: { className?: string }) {
       onClick={toggle}
       aria-label={`switch to ${theme === "dark" ? "light" : "dark"} theme`}
     >
-      [ <b>{theme}</b> ]
+      {variant === "icon" ? <span aria-hidden="true">◐</span> : <>[ <b>{theme}</b> ]</>}
     </button>
   );
 }
