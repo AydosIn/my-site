@@ -37,6 +37,7 @@
   --bunny: #f6f4fa;
   --bunny-line: #000000;
   --bunny-shade: #c9c4d6;
+  --blush: #ff8f9b;
 }
 
 /* Light theme: set by ThemeToggle as <html data-theme="light"> */
@@ -60,6 +61,7 @@
   --bunny: #ffffff;
   --bunny-line: #111110;
   --bunny-shade: #d6d3de;
+  --blush: #ff9aa5;
 }
 
 html {
@@ -317,8 +319,46 @@ a {
   transition: transform 0.2s ease-in-out;
 }
 
-.home-logo:hover .home-logo__ears {
+.home-logo-wrap:hover .home-logo__ears {
   transform: rotate(-7deg);
+}
+
+/* The heart is a button: tap it and it hops onto the bunny (see BunnyLogo). */
+.home-logo-wrap {
+  position: relative;
+  width: 132px;
+  height: 132px;
+}
+
+.home-logo__tap {
+  position: absolute;
+  left: 64%;
+  top: 7%;
+  width: 30%;
+  height: 30%;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.home-logo__tap:focus-visible {
+  outline: 2px dashed var(--heart);
+  outline-offset: 2px;
+}
+
+.home-logo__hop,
+.home-logo__blush,
+.home-logo__mini {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+/* While it hops, the usual heartbeat waits. */
+.home-logo[data-busy] .home-logo__heart {
+  animation: none;
 }
 
 .home-logo__heart {
