@@ -2,7 +2,7 @@ import { photos } from "@data/photos";
 import { PhotoViewer } from "@components/PhotoViewer";
 import { FadeLink } from "@components/FadeLink";
 
-export const metadata = { title: "photos" };
+export const metadata = { title: "photos", alternates: { canonical: "/photos" } };
 
 export default function PhotosPage() {
   return (

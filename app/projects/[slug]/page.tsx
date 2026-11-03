@@ -7,6 +7,9 @@ import { getProject } from "@lib/projects";
 
 type Props = { params: Promise<{ slug: string }> };
 
+// Every page is generated at build time, so any other slug is a real 404.
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return projects.map((p) => ({ slug: p.slug }));
 }

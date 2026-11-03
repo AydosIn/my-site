@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { getAllReflections } from "@lib/reflections";
 
-export const metadata = { title: "reflections" };
+export const metadata = { title: "reflections", alternates: { canonical: "/reflections" } };
 
 function formatDate(date: string) {
   if (!date) return "";

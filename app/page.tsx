@@ -1,6 +1,8 @@
 import { HomeContent, type HomeReflection } from "@components/HomeContent";
 import { getAllReflections } from "@lib/reflections";
 
+export const metadata = { alternates: { canonical: "/" } };
+
 const HOME_REFLECTION_COUNT = 3;
 
 function formatDate(date: string) {

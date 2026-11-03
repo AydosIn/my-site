@@ -1,6 +1,6 @@
 import { CvContent } from "@components/CvContent";
 
-export const metadata = { title: "cv" };
+export const metadata = { title: "cv", alternates: { canonical: "/cv" } };
 
 export default function CvPage() {
   return (

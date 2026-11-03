@@ -87,9 +87,7 @@ export async function getAllReflections(): Promise<ReflectionMeta[]> {
   }));
 }
 
-export async function getReflectionBySlug(slug: string): Promise<ReflectionFull> {
+export async function getReflectionBySlug(slug: string): Promise<ReflectionFull | undefined> {
   const posts = await loadAll();
-  const post = posts.find((p) => p.slug === slug);
-  if (!post) throw new Error(`Reflection not found: ${slug}`);
-  return post;
+  return posts.find((p) => p.slug === slug);
 }
