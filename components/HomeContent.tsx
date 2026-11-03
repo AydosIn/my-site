@@ -68,10 +68,17 @@ export function HomeContent({
           {homeContactLinks.map((item) => {
             if (!item.href) return null;
             const Icon = contactIcons[item.label];
-            const title = item.label === "email" ? `email ${site.contact.email}` : item.label;
+            const isEmail = item.label === "email";
+            const title = isEmail ? `email ${site.contact.email}` : item.label;
             return (
               <li key={item.label}>
-                <a href={item.href} target="_blank" rel="noreferrer" aria-label={item.label} title={title}>
+                <a
+                  href={item.href}
+                  target={isEmail ? undefined : "_blank"}
+                  rel={isEmail ? undefined : "noreferrer"}
+                  aria-label={item.label}
+                  title={title}
+                >
                   <Icon aria-hidden="true" />
                 </a>
               </li>

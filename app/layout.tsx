@@ -15,9 +15,6 @@ export const metadata: Metadata = {
     template: `%s · ${site.ownerName.toLowerCase()}`,
   },
   description: site.description,
-  alternates: {
-    canonical: "/",
-  },
   robots: {
     index: true,
     follow: true,

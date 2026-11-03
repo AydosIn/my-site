@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ProjectsList } from "@components/ProjectsList";
 import { getProjects } from "@lib/projects";
 
-export const metadata = { title: "projects" };
+export const metadata = { title: "projects", alternates: { canonical: "/projects" } };
 
 export default function ProjectsPage() {
   const projects = getProjects();
