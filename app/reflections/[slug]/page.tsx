@@ -50,6 +50,7 @@ export default async function ReflectionPostPage({ params }: Props) {
     <ReflectionPostContent
       title={post.title.toLowerCase()}
       date={formatDate(post.date)}
+      isoDate={post.date}
       html={post.html}
     />
   );

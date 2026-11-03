@@ -1,13 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { site } from "@data/site";
-
-const socialLinks = [
-  { label: "github", href: site.contact.github },
-  { label: "telegram", href: site.contact.telegram },
-  { label: "instagram", href: site.contact.instagram },
-] as const;
+import { homeContactLinks } from "@data/site";
 
 export function Footer() {
   const pathname = usePathname();
@@ -17,25 +11,29 @@ export function Footer() {
   if (pathname === "/" || pathname === "/photos") return null;
 
   return (
-    <footer className="footer-root">
-      <div className="footer-inner">
-        <span className="footer-copy">
-          © {new Date().getFullYear()} {site.ownerName.toLowerCase()}
-        </span>
-        <div className="footer-links">
-          {socialLinks.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              target="_blank"
-              rel="noreferrer"
-              className="footer-link"
-            >
-              {link.label}
-            </a>
-          ))}
-        </div>
-      </div>
+    <footer className="foot">
+      <ul className="foot__links" aria-label="elsewhere">
+        {homeContactLinks.map((link) => {
+          if (!link.href) return null;
+          const external = !link.href.startsWith("mailto:");
+          return (
+            <li key={link.label}>
+              <a
+                href={link.href}
+                className="foot__link"
+                target={external ? "_blank" : undefined}
+                rel={external ? "noreferrer" : undefined}
+              >
+                {link.label}
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+      <p className="foot__made">
+        made with <span aria-hidden="true">&lt;3</span>
+        <span className="sr-only">love</span> in tashkent &amp; nukus
+      </p>
     </footer>
   );
 }

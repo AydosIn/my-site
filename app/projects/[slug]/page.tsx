@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { projects } from "@data/projects";
 import { getProject } from "@lib/projects";
+import { ProjectStatus } from "@components/ProjectsList";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -42,71 +43,50 @@ export default async function ProjectPage({ params }: Props) {
   const paragraphs = project.details ?? [project.description];
 
   return (
-    <div className="page-shell">
-      <header className="page-header">
-        <p className="page-header__comment">{`// projects / ${project.slug}`}</p>
-        <div className="project-detail__title-row">
-          <h1 className="page-header__title">{project.name}</h1>
-          <span
-            className={
-              project.status === "live"
-                ? "project-card__status project-card__status--live"
-                : "project-card__status"
-            }
-          >
-            {project.status}
-          </span>
-        </div>
+    <article className="page">
+      <header className="page-head">
+        <h1 className="page-title">{project.name}</h1>
+        <p className="page-sub">
+          <ProjectStatus status={project.status} />
+        </p>
       </header>
 
-      <div className="project-detail__shot">
-        {project.image ? (
+      {project.image && (
+        <div className="project-shot">
           <Image
             src={project.image}
             alt={`${project.name} screenshot`}
             width={1280}
             height={800}
-            sizes="(max-width: 760px) 100vw, 760px"
-            className="project-detail__img"
+            sizes="(max-width: 720px) 100vw, 680px"
+            className="project-shot__img"
             priority
           />
-        ) : (
-          <span className="project-card__thumb-label" aria-hidden="true">
-            no screenshot yet
-          </span>
-        )}
-      </div>
+        </div>
+      )}
 
-      <div className="project-detail__body">
+      <div className="prose">
         {paragraphs.map((p) => (
-          <p key={p} className="project-detail__para">
-            {p}
-          </p>
+          <p key={p}>{p}</p>
         ))}
       </div>
 
-      <div className="project-card__tags project-detail__tags">
+      <p className="tags project-tags">
         {project.tags.map((tag) => (
-          <span key={tag} className="project-card__tag">
+          <span key={tag} className="tag">
             {tag}
           </span>
         ))}
-      </div>
+      </p>
 
-      {project.href && (
-        <a
-          href={project.href}
-          target="_blank"
-          rel="noreferrer"
-          className="project-detail__visit"
-        >
-          visit the live project ↗
-        </a>
-      )}
-
-      <Link href="/projects" className="section__link" style={{ marginTop: "40px" }}>
-        ← all projects
-      </Link>
-    </div>
+      <nav className="page-end" aria-label="more">
+        {project.href && (
+          <a href={project.href} target="_blank" rel="noreferrer">
+            visit the live project ↗
+          </a>
+        )}
+        <Link href="/projects">← all projects</Link>
+      </nav>
+    </article>
   );
 }

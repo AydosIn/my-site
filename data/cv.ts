@@ -1,3 +1,5 @@
+import { site } from "./site";
+
 export type CvEntry = {
   title: string;
   org: string;
@@ -12,8 +14,8 @@ export type CvLink = {
 
 export const cvHeader = {
   name: "aydos inyatdinov",
-  role: "ai full-stack engineer",
-  location: "tashkent, uz",
+  role: site.role.join(" · "),
+  location: "tashkent & nukus, uz",
   timezone: "asia/tashkent",
 };
 

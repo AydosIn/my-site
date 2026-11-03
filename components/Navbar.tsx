@@ -4,72 +4,50 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { site } from "@data/site";
 import { ThemeToggle } from "@components/ThemeToggle";
+import { BunnyMark } from "@components/BunnyMark";
+import { FadeLink } from "@components/FadeLink";
 
 const navItems = [
   { label: "cv", href: site.cvUrl },
   { label: "projects", href: "/projects" },
   { label: "books", href: "/books" },
-  { label: "reflections", href: "/reflections" },
+  { label: "writing", href: "/reflections" },
 ] as const;
-
-function NavButton({
-  label,
-  href,
-  external,
-}: {
-  label: string;
-  href: string;
-  external?: boolean;
-}) {
-  const pathname = usePathname();
-  const active = !external && pathname.startsWith(href);
-
-  if (external) {
-    return (
-      <a href={href} className="nav-btn" target="_blank" rel="noreferrer">
-        {label}
-      </a>
-    );
-  }
-
-  return (
-    <Link href={href} className="nav-btn" data-active={active || undefined}>
-      {label}
-    </Link>
-  );
-}
 
 export function Navbar() {
   const pathname = usePathname();
 
-  // The home page has its own header (big name + tabs), so the bar would repeat it.
+  // The home page has its own header (bunny + big name), so the bar would repeat it.
   // /photos is a full-screen viewer with nothing around the photo.
   if (pathname === "/" || pathname === "/photos") return null;
 
   return (
-    <header className="navbar-root">
-      <div className="navbar-inner">
-        <div className="navbar-brand">
-          <div className="navbar-brand__prompt">
-            ~/aydos $<span className="hero__cursor" aria-hidden="true" />
-          </div>
-          <Link href="/" className="navbar-brand__name">
-            {site.ownerName}
-          </Link>
-          <ul className="navbar-brand__facts">
-            {site.devFacts.map((fact) => (
-              <li key={fact}>{fact}</li>
-            ))}
-          </ul>
-        </div>
+    <header className="nav">
+      <Link href="/" className="nav__brand" aria-label={`${site.ownerName.toLowerCase()}, home`}>
+        <BunnyMark className="nav__mark" />
+        <span className="nav__name">{site.ownerName.toLowerCase()}</span>
+      </Link>
 
-        <nav className="navbar-nav" aria-label="Primary">
-          {navItems.map((item) => (
-            <NavButton key={item.label} {...item} />
-          ))}
-          <ThemeToggle className="navbar-theme" />
-        </nav>
-      </div>
+      <ThemeToggle className="nav__theme" variant="icon" />
+
+      <nav className="nav__links" aria-label="primary">
+        {navItems.map((item) => {
+          const active = pathname.startsWith(item.href);
+          return (
+            <Link
+              key={item.href}
+              href={item.href}
+              className="nav__link"
+              aria-current={active ? "page" : undefined}
+            >
+              {item.label}
+            </Link>
+          );
+        })}
+        <FadeLink href="/photos" className="nav__link">
+          photos
+        </FadeLink>
+      </nav>
     </header>
   );
 }

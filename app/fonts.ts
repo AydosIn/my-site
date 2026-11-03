@@ -1,20 +1,14 @@
-import { JetBrains_Mono, Bitcount_Grid_Double, Neucha, Roboto_Condensed } from "next/font/google";
+import { JetBrains_Mono, Neucha, Roboto_Condensed } from "next/font/google";
 
+/** Only for small details: dates, tags, handles. */
 export const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "500"],
   variable: "--font-mono",
   display: "swap",
 });
 
-export const bitcountGrid = Bitcount_Grid_Double({
-  subsets: ["latin"],
-  variable: "--font-display",
-  display: "swap",
-  adjustFontFallback: false,
-});
-
-/** Hand-drawn headings on the home page. */
+/** Hand-drawn headings, everywhere. */
 export const neucha = Neucha({
   subsets: ["latin"],
   weight: "400",
@@ -22,7 +16,7 @@ export const neucha = Neucha({
   display: "swap",
 });
 
-/** Body text on the home page. */
+/** Body text, everywhere. */
 export const robotoCondensed = Roboto_Condensed({
   subsets: ["latin"],
   weight: ["400", "700"],

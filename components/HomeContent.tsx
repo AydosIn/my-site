@@ -61,8 +61,8 @@ export function HomeContent({
         <BunnyLogo />
         <h1 className="home-name">{site.ownerName.toLowerCase()}</h1>
         <p className="home-sub">
-          <b>{site.homeTagline[0]}</b>
-          {site.homeTagline.slice(1).map((part) => ` · ${part}`)} · 18yo
+          <b>{site.role[0]}</b>
+          {site.role.slice(1).map((part) => ` · ${part}`)} · {site.age}
         </p>
         <ul className="home-icons" aria-label="elsewhere">
           {homeContactLinks.map((item) => {
@@ -116,8 +116,8 @@ export function HomeContent({
         )}
         <Link href="/reflections" className="home-more">
           {totalReflections > reflections.length
-            ? `all ${totalReflections} reflections →`
-            : "all reflections →"}
+            ? `all ${totalReflections} pieces →`
+            : "all writing →"}
         </Link>
       </Section>
 
@@ -139,7 +139,7 @@ export function HomeContent({
         <ul className="home-list">
           {featuredBooks.map((book) => (
             <li key={book.id}>
-              <Link href="/books">{book.title.toLowerCase()}</Link>
+              <Link href={`/books#${book.id}`}>{book.title.toLowerCase()}</Link>
               <span className="home-meta">{book.author.toLowerCase()}</span>
             </li>
           ))}
@@ -180,7 +180,10 @@ export function HomeContent({
         </Link>
       </Section>
 
-      <footer className="home-foot">made with &lt;3 in tashkent &amp; nukus</footer>
+      <footer className="home-foot">
+        made with <span aria-hidden="true">&lt;3</span>
+        <span className="sr-only">love</span> in tashkent &amp; nukus
+      </footer>
     </div>
   );
 }
