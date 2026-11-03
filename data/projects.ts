@@ -1,12 +1,13 @@
 export type Project = {
   slug: string;
   name: string;
-  /** One-liner shown on the card and the home-page terminal row. Keep it short. */
+  /** One-liner shown on the card and in the home-page list. Keep it short. */
   description: string;
   /** Paragraphs shown on the project's own page. Falls back to `description`. */
   details?: string[];
   tags: string[];
-  status: "live" | "in progress";
+  /** "private" = built and running, but not public yet. */
+  status: "live" | "in progress" | "private";
   /** External link to the live project. Omit until you have one. */
   href?: string;
   /** Screenshot path under /public (e.g. "/projects/landing.png"). Omit for a placeholder. */
@@ -18,9 +19,9 @@ export const projects: Project[] = [
     slug: "personal-website",
     name: "personal website",
     description:
-      "this site — a terminal-styled personal home, blog, and reading list. designed and built from scratch.",
+      "this site — a hand-drawn personal home, blog, and reading list. designed and built from scratch.",
     details: [
-      "the site you're on right now. a terminal-styled home for my writing, reading list, and work — no template, no ui kit. i designed and built it from scratch.",
+      "the site you're on right now. a hand-drawn home for my writing, reading list, and work — no template, no ui kit. i designed and built it from scratch.",
       "next.js app router with typescript, static-generated and deployed on vercel. posts are markdown files rendered at build time, so writing a new one is just dropping a file in a folder.",
     ],
     tags: ["next.js", "typescript", "tailwind"],
@@ -38,7 +39,7 @@ export const projects: Project[] = [
       "the point was to actually understand the fundamentals instead of reaching for a tool that hides them — layout, spacing, typography, and responsive breakpoints all done by hand.",
     ],
     tags: ["html", "css"],
-    status: "live",
+    status: "private",
     image: "/projects/landing-page.png",
     // href: intentionally omitted — no public links until rate limits are in place
   },
@@ -53,7 +54,7 @@ export const projects: Project[] = [
       "built as a next.js frontend against its own backend, with browse, sign-up, and join flows.",
     ],
     tags: ["next.js", "community", "events"],
-    status: "live",
+    status: "private",
     image: "/projects/events-community.png",
     // href: intentionally omitted — no public links until rate limits are in place
   },
@@ -69,7 +70,7 @@ export const projects: Project[] = [
       "the persona lives in a markdown file the bot re-reads on every single reply, so i can retune how she talks without touching a line of python or restarting anything. sqlite keeps her memory of past conversations, and she runs on a vps under systemd.",
     ],
     tags: ["python", "openai", "telegram", "sqlite"],
-    status: "live",
+    status: "private",
     image: "/projects/diana-bot.jpg",
     // href: intentionally omitted — no public telegram link until rate limits are in place
   },
@@ -84,7 +85,7 @@ export const projects: Project[] = [
       "under the hood it's hybrid retrieval: faiss vector search for meaning, bm25 for literal keywords, the two result sets fused and then reranked with a cross-encoder. only the strongest chunks get handed to the model, which keeps the answer grounded in my own notes instead of invented. when i add new notes, one command refreshes its memory.",
     ],
     tags: ["python", "rag", "faiss", "telegram"],
-    status: "live",
+    status: "private",
     image: "/projects/obsidian-rag-bot.jpg",
     // href: intentionally omitted — no public telegram link until rate limits are in place
   },

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { getAllReflections } from "@lib/reflections";
 
-export const metadata = { title: "reflections", alternates: { canonical: "/reflections" } };
+export const metadata = { title: "writing", alternates: { canonical: "/reflections" } };
 
 function formatDate(date: string) {
   if (!date) return "";
@@ -13,29 +13,29 @@ export default async function ReflectionsPage() {
   const posts = await getAllReflections();
 
   return (
-    <div className="page-shell">
-      <header className="page-header">
-        <p className="page-header__comment">{"// reflections"}</p>
-        <h1 className="page-header__title">writing</h1>
+    <div className="page">
+      <header className="page-head">
+        <h1 className="page-title">things i&apos;ve written</h1>
+        <p className="page-sub">notes on people, work, and figuring things out.</p>
       </header>
 
-      <ul className="reflections-list">
-        {posts.map((post) => (
-          <li key={post.slug} className="reflections-list__item">
-            <Link href={`/reflections/${post.slug}`} className="reflections-list__link">
-              <span className="reflections-list__title">{post.title.toLowerCase()}</span>
-              <span className="reflections-list__date">{formatDate(post.date)}</span>
-            </Link>
-            {post.excerpt && (
-              <p className="reflections-list__excerpt">{post.excerpt.toLowerCase()}</p>
-            )}
-          </li>
-        ))}
-      </ul>
-
-      <Link href="/" className="section__link" style={{ marginTop: "40px" }}>
-        ← home
-      </Link>
+      {posts.length > 0 ? (
+        <ul className="posts">
+          {posts.map((post) => (
+            <li key={post.slug}>
+              <Link href={`/reflections/${post.slug}`} className="post-link">
+                <span className="post-link__title">{post.title.toLowerCase()}</span>
+                <time className="meta" dateTime={post.date}>
+                  {formatDate(post.date)}
+                </time>
+                {post.excerpt && <span className="post-link__excerpt">{post.excerpt}</span>}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p className="page-note">nothing here yet.</p>
+      )}
     </div>
   );
 }

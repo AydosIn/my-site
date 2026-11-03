@@ -1,12 +1,13 @@
 export const site = {
-  title: "<3",
-  description: "Personal website of Aydos Inyatdinov — engineer, critical thinker, and reader.",
+  title: "aydos <3",
+  description: "Personal website of Aydos Inyatdinov — data science @ aut · data engineer. Writing, projects, books, and photos.",
   url: "https://aydosinyatdinov.dev",
   ownerName: "Aydos Inyatdinov",
-  searchSiteName: "Aydos Inyatdinov · aut · 18yo · data science · ai enthusiast",
-  devFacts: ["aut", "18yo", "data science", "ai enthusiast"],
+  searchSiteName: "Aydos Inyatdinov · data science @ aut · data engineer",
+  /** The one role line, used everywhere (home, cv, preview image). */
+  role: ["data science @ aut", "data engineer"],
+  age: "18yo",
   homeQuote: "whoami? builder? overthinker? learner? student? or just an npc?",
-  homeTagline: ["data science @ aut", "full stack dev"],
   homeLocation: "tashkent, uzbekistan & nukus, karakalpakstan.",
   cvUrl: "/cv",
   contact: {

@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import { HEART } from "@components/BunnyMark";
 
 /**
  * Hand-drawn version of the site icon (a bunny and a heart).
@@ -9,8 +10,6 @@ import { useRef } from "react";
  * wiggles its ears, then the heart hops home.
  */
 
-const HEART =
-  "M104 44 C 90 34, 86 24, 92 18 C 97 13, 103 16, 104 21 C 106 15, 113 13, 117 18 C 122 25, 116 35, 104 44 Z";
 /** Where the heart lands on the bunny's back, relative to its usual spot (SVG units). */
 const ON_BACK = "translate(-24px, 21px)";
 const MINI_HEARTS = 3;

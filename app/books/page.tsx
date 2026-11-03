@@ -4,9 +4,5 @@ import { BooksList } from "@components/BooksList";
 export const metadata = { title: "books", alternates: { canonical: "/books" } };
 
 export default function BooksPage() {
-  return (
-    <div className="page-shell">
-      <BooksList books={books} />
-    </div>
-  );
+  return <BooksList books={books} />;
 }
