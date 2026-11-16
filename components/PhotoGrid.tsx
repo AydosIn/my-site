@@ -3,16 +3,8 @@
 import Image from "next/image";
 import type { Photo } from "@data/photos";
 
-/** Photos in a row of three; each one zooms in where the pointer is. */
-export function PhotoGrid({
-  photos,
-  captions = false,
-  priority = false,
-}: {
-  photos: Photo[];
-  captions?: boolean;
-  priority?: boolean;
-}) {
+/** The home page's row of three photos; each one zooms in where the pointer is. */
+export function PhotoGrid({ photos }: { photos: Photo[] }) {
   function zoom(e: React.PointerEvent<HTMLDivElement>) {
     if (e.pointerType !== "mouse") return;
     const img = e.currentTarget.querySelector("img");
@@ -29,7 +21,7 @@ export function PhotoGrid({
 
   return (
     <div className="photos">
-      {photos.map((photo, i) => (
+      {photos.map((photo) => (
         <figure key={photo.id} className="photo">
           <div className="photo__frame" onPointerMove={zoom} onPointerLeave={reset}>
             <Image
@@ -38,14 +30,8 @@ export function PhotoGrid({
               fill
               sizes="(max-width: 767px) 100vw, 300px"
               className="photo__img"
-              priority={priority && i === 0}
             />
           </div>
-          {captions && (photo.caption || photo.date) && (
-            <figcaption className="label">
-              {[photo.caption, photo.place, photo.date].filter(Boolean).join(" · ")}
-            </figcaption>
-          )}
         </figure>
       ))}
     </div>
