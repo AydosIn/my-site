@@ -1,5 +1,5 @@
 /** The three shown on the home page, in this order. */
-export const featuredPhotoIds = ["valley-dusk", "doppi-selfie", "friends-stage"];
+export const featuredPhotoIds = ["valley-dusk", "laptop-mirror", "friends-stage"];
 
 /**
  * Photos shown on /photos, in this order.
@@ -18,10 +18,10 @@ export type Photo = {
 
 export const photos: Photo[] = [
   {
-    id: "friends-stage",
-    src: "/photos/photo1.jpg",
-    alt: "Four friends sitting side by side on the edge of a stage in front of a projector screen",
-    date: "Oct 2026",
+    id: "valley-dusk",
+    src: "/photos/photo3.jpg",
+    alt: "Rooftops and vineyards at dusk, with mountains fading into a blue sky",
+    date: "May 2026",
   },
   {
     id: "laptop-mirror",
@@ -30,10 +30,10 @@ export const photos: Photo[] = [
     date: "Oct 2026",
   },
   {
-    id: "valley-dusk",
-    src: "/photos/photo3.jpg",
-    alt: "Rooftops and vineyards at dusk, with mountains fading into a blue sky",
-    date: "May 2026",
+    id: "friends-stage",
+    src: "/photos/photo1.jpg",
+    alt: "Four friends sitting side by side on the edge of a stage in front of a projector screen",
+    date: "Oct 2026",
   },
   {
     id: "doppi-selfie",
