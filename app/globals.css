@@ -287,10 +287,6 @@ button {
 }
 
 /* ============ Photos ============ */
-.photos-link {
-  display: block;
-}
-
 .photos {
   display: grid;
   grid-template-columns: 1fr;
