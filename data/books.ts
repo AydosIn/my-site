@@ -3,6 +3,8 @@ export type Book = {
   title: string;
   author: string;
   isbn?: string;
+  /** Cover image under /public. Without one, the book shows as a plain tile with its title. */
+  cover?: string;
   takeaway?: string;
   year?: number;
   tags?: string[];
@@ -10,15 +12,8 @@ export type Book = {
 
 export const books: Book[] = [
   {
-    id: "b-1",
-    title: "Rich Dad Poor Dad",
-    author: "Robert Kiyosaki",
-    isbn: "9781612680194",
-    takeaway: "Assets put money in your pocket. Liabilities take it out. Most people never learn this distinction.",
-    tags: ["finance", "mindset"]
-  },
-  {
     id: "b-2",
+    cover: "/books/b-2.jpg",
     title: "The Alchemist",
     author: "Paulo Coelho",
     isbn: "9780062315007",
@@ -27,6 +22,7 @@ export const books: Book[] = [
   },
   {
     id: "b-3",
+    cover: "/books/b-3.jpg",
     title: "The Kite Runner",
     author: "Khaled Hosseini",
     isbn: "9781594480003",
@@ -35,6 +31,7 @@ export const books: Book[] = [
   },
   {
     id: "b-4",
+    cover: "/books/b-4.jpg",
     title: "1776",
     author: "David McCullough",
     isbn: "9780743226721",
@@ -43,6 +40,7 @@ export const books: Book[] = [
   },
   {
     id: "b-5",
+    cover: "/books/b-5.jpg",
     title: "The Picture of Dorian Gray",
     author: "Oscar Wilde",
     isbn: "9780141442464",
@@ -51,6 +49,7 @@ export const books: Book[] = [
   },
   {
     id: "b-6",
+    cover: "/books/b-6.jpg",
     title: "The Prince",
     author: "Niccolò Machiavelli",
     isbn: "9780486272740",
@@ -59,6 +58,7 @@ export const books: Book[] = [
   },
   {
     id: "b-7",
+    cover: "/books/b-7.jpg",
     title: "Pride and Prejudice",
     author: "Jane Austen",
     isbn: "9780141439518",
@@ -67,6 +67,7 @@ export const books: Book[] = [
   },
   {
     id: "b-8",
+    cover: "/books/b-8.jpg",
     title: "Man's Search for Meaning",
     author: "Viktor Frankl",
     isbn: "9780807014295",
@@ -75,6 +76,7 @@ export const books: Book[] = [
   },
   {
     id: "b-9",
+    cover: "/books/b-9.jpg",
     title: "A Mathematician's Lament",
     author: "Paul Lockhart",
     isbn: "9781934137178",
@@ -83,6 +85,7 @@ export const books: Book[] = [
   },
   {
     id: "b-10",
+    cover: "/books/b-10.jpg",
     title: "1984",
     author: "George Orwell",
     isbn: "9780451524935",
@@ -91,6 +94,7 @@ export const books: Book[] = [
   },
   {
     id: "b-11",
+    cover: "/books/b-11.jpg",
     title: "Freakonomics",
     author: "Steven Levitt & Stephen Dubner",
     isbn: "9780060731335",
@@ -99,6 +103,7 @@ export const books: Book[] = [
   },
   {
     id: "b-12",
+    cover: "/books/b-12.jpg",
     title: "The Great Gatsby",
     author: "F. Scott Fitzgerald",
     isbn: "9780743273565",
@@ -107,6 +112,7 @@ export const books: Book[] = [
   },
   {
     id: "b-13",
+    cover: "/books/b-13.jpg",
     title: "Science and Hope",
     author: "Carl Sagan",
     isbn: "9780345409461",
@@ -122,6 +128,7 @@ export const books: Book[] = [
   },
   {
     id: "b-15",
+    cover: "/books/b-15.jpg",
     title: "On Writing Well",
     author: "William Zinsser",
     isbn: "9780060891541",
@@ -130,6 +137,7 @@ export const books: Book[] = [
   },
   {
     id: "b-16",
+    cover: "/books/b-16.jpg",
     title: "The Mom Test",
     author: "Rob Fitzpatrick",
     isbn: "9781492180746",
@@ -138,6 +146,7 @@ export const books: Book[] = [
   },
   {
     id: "b-17",
+    cover: "/books/b-17.jpg",
     title: "The Lean Startup",
     author: "Eric Ries",
     isbn: "9780307887894",
