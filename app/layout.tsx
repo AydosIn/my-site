@@ -1,18 +1,14 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { Navbar } from "@components/Navbar";
-import { Footer } from "@components/Footer";
 import { Analytics } from "@vercel/analytics/react";
 import { site } from "@data/site";
-import { jetbrainsMono, neucha, robotoCondensed } from "./fonts";
 import { themeInitScript } from "@components/ThemeToggle";
-import { FadeReset } from "@components/FadeLink";
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
     default: site.title,
-    template: `%s · ${site.ownerName.toLowerCase()}`,
+    template: `%s · ${site.ownerName}`,
   },
   description: site.description,
   robots: {
@@ -40,11 +36,7 @@ const websiteJsonLd = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     // suppressHydrationWarning: themeInitScript may set data-theme on <html> before React hydrates
-    <html
-      lang="en"
-      className={`${jetbrainsMono.variable} ${neucha.variable} ${robotoCondensed.variable}`}
-      suppressHydrationWarning
-    >
+    <html lang="en" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
@@ -53,10 +45,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
         />
-        <Navbar />
-        <main className="main">{children}</main>
-        <Footer />
-        <FadeReset />
+        <main>{children}</main>
         <Analytics />
       </body>
     </html>

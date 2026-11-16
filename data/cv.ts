@@ -3,6 +3,8 @@ import { site } from "./site";
 export type CvEntry = {
   title: string;
   org: string;
+  /** Short years shown as the grey label on the home page. */
+  years: string;
   date: string;
 };
 
@@ -13,86 +15,76 @@ export type CvLink = {
 };
 
 export const cvHeader = {
-  name: "aydos inyatdinov",
+  name: site.ownerName,
   role: site.role.join(" · "),
-  location: "tashkent & nukus, uz",
-  timezone: "asia/tashkent",
+  location: "Tashkent & Nukus, Uzbekistan",
 };
 
 export const cvAbout =
-  "18-year-old student from tashkent, studying data science at aut tashkent. ai enthusiast interested in technology, products, and building things that matter.";
+  "18-year-old student from Tashkent, studying data science at AUT Tashkent. AI enthusiast interested in technology, products, and building things that matter.";
 
 export const cvExperience: CvEntry[] = [
   {
-    title: "project manager",
-    org: "aisha ai · tashkent, uz",
-    date: "nov 2025 — jul 2026",
+    title: "Project manager",
+    org: "Aisha AI · Tashkent",
+    years: "2025–2026",
+    date: "Nov 2025 – Jul 2026",
   },
 ];
 
 export const cvEducation: CvEntry[] = [
   {
-    title: "american university of technology",
-    org: "data science · tashkent, uz",
-    date: "oct 2025 — may 2029",
+    title: "American University of Technology",
+    org: "Data science · Tashkent",
+    years: "2025–2029",
+    date: "Oct 2025 – May 2029",
   },
 ];
 
 export type CvSkillGroup = {
   label: string;
-  tone: "code" | "ai" | "product";
   skills: string[];
 };
 
 export const cvSkills: CvSkillGroup[] = [
   {
-    label: "software engineering",
-    tone: "code",
-    skills: ["python", "git", "github", "html", "css"],
+    label: "Software engineering",
+    skills: ["Python", "Git", "GitHub", "HTML", "CSS"],
   },
   {
-    label: "ai / data science",
-    tone: "ai",
-    skills: [
-      "llm",
-      "metadata",
-      "embeddings",
-      "vector db",
-      "rag",
-      "prompt engineering",
-    ],
+    label: "AI / data science",
+    skills: ["LLMs", "Metadata", "Embeddings", "Vector DBs", "RAG", "Prompt engineering"],
   },
   {
-    label: "project management",
-    tone: "product",
-    skills: ["slack", "jira", "customer development (custdev)"],
+    label: "Project management",
+    skills: ["Slack", "Jira", "Customer development"],
   },
 ];
 
 export const cvLinks: CvLink[] = [
   {
-    label: "linkedin",
+    label: "LinkedIn",
     handle: "in/aydos-inyatdinov",
-    href: "https://www.linkedin.com/in/aydos-inyatdinov-282163343/",
+    href: site.contact.linkedin,
   },
   {
-    label: "github",
+    label: "GitHub",
     handle: "@AydosIn",
-    href: "https://github.com/AydosIn",
+    href: site.contact.github,
   },
   {
-    label: "telegram",
+    label: "Telegram",
     handle: "t.me/aydosffr",
-    href: "https://t.me/aydosffr",
+    href: site.contact.telegram,
   },
   {
-    label: "x",
+    label: "X",
     handle: "x.com/Aydosffr",
-    href: "https://x.com/Aydosffr",
+    href: site.contact.x,
   },
   {
-    label: "email",
-    handle: "aydosed@gmail.com",
-    href: "mailto:aydosed@gmail.com",
+    label: "Email",
+    handle: site.contact.email,
+    href: `mailto:${site.contact.email}`,
   },
 ];

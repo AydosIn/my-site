@@ -1,41 +1,32 @@
 import Link from "next/link";
 import { getAllReflections } from "@lib/reflections";
+import { Page } from "@components/Page";
+import { formatDate } from "@lib/utils";
 
-export const metadata = { title: "writing", alternates: { canonical: "/reflections" } };
-
-function formatDate(date: string) {
-  if (!date) return "";
-  const d = new Date(date);
-  return d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }).toLowerCase();
-}
+export const metadata = { title: "Writing", alternates: { canonical: "/reflections" } };
 
 export default async function ReflectionsPage() {
   const posts = await getAllReflections();
 
   return (
-    <div className="page">
-      <header className="page-head">
-        <h1 className="page-title">things i&apos;ve written</h1>
-        <p className="page-sub">notes on people, work, and figuring things out.</p>
-      </header>
-
+    <Page title="Writing" sub="Notes on people, work, and figuring things out.">
       {posts.length > 0 ? (
-        <ul className="posts">
+        <ul className="list list--loose">
           {posts.map((post) => (
             <li key={post.slug}>
-              <Link href={`/reflections/${post.slug}`} className="post-link">
-                <span className="post-link__title">{post.title.toLowerCase()}</span>
-                <time className="meta" dateTime={post.date}>
+              <div className="item">
+                <Link href={`/reflections/${post.slug}`}>{post.title}</Link>
+                <time className="label" dateTime={post.date}>
                   {formatDate(post.date)}
                 </time>
-                {post.excerpt && <span className="post-link__excerpt">{post.excerpt}</span>}
-              </Link>
+              </div>
+              {post.excerpt && <p className="item__desc">{post.excerpt}</p>}
             </li>
           ))}
         </ul>
       ) : (
-        <p className="page-note">nothing here yet.</p>
+        <p className="label">Nothing here yet.</p>
       )}
-    </div>
+    </Page>
   );
 }

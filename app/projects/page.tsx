@@ -1,27 +1,22 @@
 import { ProjectsList } from "@components/ProjectsList";
+import { Page } from "@components/Page";
 import { getProjects } from "@lib/projects";
 import { site } from "@data/site";
 
-export const metadata = { title: "projects", alternates: { canonical: "/projects" } };
+export const metadata = { title: "Projects", alternates: { canonical: "/projects" } };
 
 export default function ProjectsPage() {
-  const projects = getProjects();
-
   return (
-    <div className="page">
-      <header className="page-head">
-        <h1 className="page-title">things i&apos;ve built</h1>
-        <p className="page-sub">designed, coded, and shipped by me.</p>
-      </header>
-
-      <ProjectsList projects={projects} />
+    <Page title="Projects" sub="Designed, coded, and shipped by me.">
+      <ProjectsList projects={getProjects()} />
 
       <p className="page-note">
-        smaller experiments live on{" "}
+        Smaller experiments live on{" "}
         <a href={site.contact.github} target="_blank" rel="noreferrer">
-          github ↗
+          GitHub
         </a>
+        .
       </p>
-    </div>
+    </Page>
   );
 }

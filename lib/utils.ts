@@ -15,3 +15,8 @@ export function toSlug(input: string): string {
 
 
   
+/** "2026-07-16" → "Jul 16, 2026". Empty input gives an empty string. */
+export function formatDate(date: string): string {
+  if (!date) return "";
+  return new Date(date).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+}

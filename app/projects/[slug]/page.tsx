@@ -4,7 +4,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { projects } from "@data/projects";
 import { getProject } from "@lib/projects";
-import { ProjectStatus } from "@components/ProjectsList";
+import { statusLabel } from "@components/ProjectsList";
+import { Page } from "@components/Page";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -43,23 +44,16 @@ export default async function ProjectPage({ params }: Props) {
   const paragraphs = project.details ?? [project.description];
 
   return (
-    <article className="page">
-      <header className="page-head">
-        <h1 className="page-title">{project.name}</h1>
-        <p className="page-sub">
-          <ProjectStatus status={project.status} />
-        </p>
-      </header>
-
+    <Page as="article" title={project.name} sub={statusLabel[project.status]}>
       {project.image && (
-        <div className="project-shot">
+        <div className="shot">
           <Image
             src={project.image}
             alt={`${project.name} screenshot`}
             width={1280}
             height={800}
-            sizes="(max-width: 720px) 100vw, 680px"
-            className="project-shot__img"
+            sizes="(max-width: 720px) 100vw, 720px"
+            className="shot__img"
             priority
           />
         </div>
@@ -71,22 +65,18 @@ export default async function ProjectPage({ params }: Props) {
         ))}
       </div>
 
-      <p className="tags project-tags">
-        {project.tags.map((tag) => (
-          <span key={tag} className="tag">
-            {tag}
-          </span>
-        ))}
-      </p>
+      <p className="label page-note">{project.tags.join(" · ")}</p>
 
-      <nav className="page-end" aria-label="more">
+      <p className="page-end">
         {project.href && (
-          <a href={project.href} target="_blank" rel="noreferrer">
-            visit the live project ↗
+          <a href={project.href} target="_blank" rel="noreferrer" className="more">
+            Visit the live project
           </a>
         )}
-        <Link href="/projects">← all projects</Link>
-      </nav>
-    </article>
+        <Link href="/projects" className="more">
+          All projects
+        </Link>
+      </p>
+    </Page>
   );
 }
