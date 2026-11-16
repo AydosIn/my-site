@@ -1,25 +1,22 @@
 import Link from "next/link";
-import { BunnyMark } from "@components/BunnyMark";
+import { Page } from "@components/Page";
 
-export const metadata = { title: "lost" };
+export const metadata = { title: "Page not found" };
 
 export default function NotFound() {
   return (
-    <div className="page lost">
-      <BunnyMark className="lost__bunny" lost />
-      <h1 className="page-title">this page hopped away</h1>
-      <p className="page-sub">the link might be old, or it never existed.</p>
-      <ul className="lost__links">
-        <li>
-          <Link href="/">go home</Link>
+    <Page title="Page not found" sub="The link might be old, or it never existed.">
+      <ul className="list">
+        <li className="item">
+          <Link href="/">Home</Link>
         </li>
-        <li>
-          <Link href="/reflections">read something</Link>
+        <li className="item">
+          <Link href="/reflections">Writing</Link>
         </li>
-        <li>
-          <Link href="/projects">see what i&apos;ve built</Link>
+        <li className="item">
+          <Link href="/projects">Projects</Link>
         </li>
       </ul>
-    </div>
+    </Page>
   );
 }

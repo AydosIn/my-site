@@ -1,8 +1,13 @@
 import { books } from "@data/books";
 import { BooksList } from "@components/BooksList";
+import { Page } from "@components/Page";
 
-export const metadata = { title: "books", alternates: { canonical: "/books" } };
+export const metadata = { title: "Books", alternates: { canonical: "/books" } };
 
 export default function BooksPage() {
-  return <BooksList books={books} />;
+  return (
+    <Page title="Books" sub="And the one thing each of them left me with.">
+      <BooksList books={books} />
+    </Page>
+  );
 }

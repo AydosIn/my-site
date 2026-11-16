@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ReflectionPostContent } from "@components/ReflectionPostContent";
 import { getAllReflections, getReflectionBySlug } from "@lib/reflections";
+import { formatDate } from "@lib/utils";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -18,7 +19,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const post = await getReflectionBySlug(slug);
   if (!post) return {};
 
-  const title = post.title.toLowerCase();
+  const title = post.title;
   const description = post.excerpt || undefined;
   const url = `/reflections/${post.slug}`;
   return {
@@ -35,12 +36,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-function formatDate(date: string) {
-  if (!date) return "";
-  const d = new Date(date);
-  return d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }).toLowerCase();
-}
-
 export default async function ReflectionPostPage({ params }: Props) {
   const { slug } = await params;
   const post = await getReflectionBySlug(slug);
@@ -48,7 +43,7 @@ export default async function ReflectionPostPage({ params }: Props) {
 
   return (
     <ReflectionPostContent
-      title={post.title.toLowerCase()}
+      title={post.title}
       date={formatDate(post.date)}
       isoDate={post.date}
       html={post.html}
