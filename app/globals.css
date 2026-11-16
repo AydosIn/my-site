@@ -308,7 +308,6 @@ button {
 
 .photo__img {
   object-fit: cover;
-  transition: transform 0.1s ease-out;
 }
 
 /* ============ Photos page: one photo at a time on a small pile ============ */
@@ -334,6 +333,7 @@ button {
   max-width: 640px;
   height: calc(var(--max-h) + 36px);
   touch-action: pan-y;
+  isolation: isolate;
 }
 
 /* Each photo keeps its own shape: as wide as the stage allows, never taller than --max-h. */
@@ -368,6 +368,12 @@ button {
   box-shadow: inset 0 0 0 1px var(--edge);
   pointer-events: none;
   transition: background-color 0.35s ease;
+}
+
+/* Only the photo on top can be touched. The ones behind it, and the one that
+   flew off to the left, would otherwise sit over the arrows and eat their clicks. */
+.viewer__card:not([data-top]) {
+  pointer-events: none;
 }
 
 .viewer__card[data-top] {
@@ -405,6 +411,8 @@ button {
 }
 
 .viewer__arrow {
+  position: relative;
+  z-index: 1;
   flex: none;
   display: grid;
   place-items: center;
@@ -1112,9 +1120,5 @@ button {
   *::before,
   *::after {
     transition-duration: 0.01ms !important;
-  }
-
-  .photo__img {
-    transform: none !important;
   }
 }
