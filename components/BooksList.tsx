@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { LuSearch, LuX } from "react-icons/lu";
 import type { Book } from "@data/books";
 
 function BookTile({ book, open, onToggle }: { book: Book; open: boolean; onToggle: () => void }) {
@@ -43,6 +44,21 @@ export function BooksList({ books }: { books: Book[] }) {
   const [query, setQuery] = useState("");
   const [tag, setTag] = useState<string | null>(null);
   const [openId, setOpenId] = useState<string | null>(null);
+  const [showTags, setShowTags] = useState(false);
+  const searchRef = useRef<HTMLInputElement>(null);
+
+  // Press "/" anywhere on the page to jump into the search box.
+  useEffect(() => {
+    function onKey(e: KeyboardEvent) {
+      const target = e.target as HTMLElement;
+      if (e.key !== "/" || e.metaKey || e.ctrlKey || e.altKey) return;
+      if (target.closest("input, textarea, select, [contenteditable]")) return;
+      e.preventDefault();
+      searchRef.current?.focus();
+    }
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
 
   // Every tag, most used first, so the chips read as the shelf's sections.
   const tags = useMemo(() => {
@@ -70,32 +86,66 @@ export function BooksList({ books }: { books: Book[] }) {
   return (
     <>
       <div className="shelf-controls">
-        <input
-          id="book-search"
-          type="search"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search by title, author, or tag"
-          aria-label="Search books by title, author, or tag"
-          className="search__input"
-        />
+        <div className="search">
+          <LuSearch className="search__icon" aria-hidden="true" />
+          <input
+            ref={searchRef}
+            id="book-search"
+            type="search"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            onKeyDown={(e) => e.key === "Escape" && setQuery("")}
+            placeholder="Search books"
+            aria-label="Search books by title, author, or tag"
+            className="search__input"
+          />
+          {query ? (
+            <button type="button" className="search__clear" onClick={() => setQuery("")} aria-label="Clear search">
+              <LuX aria-hidden="true" />
+            </button>
+          ) : (
+            <kbd className="search__key" aria-hidden="true">
+              /
+            </kbd>
+          )}
+        </div>
 
         <div className="chips" role="group" aria-label="Filter by tag">
           <button type="button" className="chip" aria-pressed={tag === null} onClick={() => setTag(null)}>
             All
           </button>
-          {tags.map(([name, count]) => (
-            <button
-              key={name}
-              type="button"
-              className="chip"
-              aria-pressed={tag === name}
-              onClick={() => setTag(tag === name ? null : name)}
-            >
-              {name} <span className="chip__count">{count}</span>
+          {/* With the list closed, a chosen tag stays visible next to All. */}
+          {!showTags && tag && (
+            <button type="button" className="chip" aria-pressed="true" onClick={() => setTag(null)}>
+              {tag} <LuX className="chip__x" aria-hidden="true" />
             </button>
-          ))}
+          )}
+          <button
+            type="button"
+            className="chip chip--more"
+            aria-expanded={showTags}
+            aria-controls="book-tags"
+            onClick={() => setShowTags(!showTags)}
+          >
+            {showTags ? "Less" : `More · ${tags.length} tags`}
+          </button>
         </div>
+
+        {showTags && (
+          <div id="book-tags" className="chips chips--all">
+            {tags.map(([name, count]) => (
+              <button
+                key={name}
+                type="button"
+                className="chip"
+                aria-pressed={tag === name}
+                onClick={() => setTag(tag === name ? null : name)}
+              >
+                {name} <span className="chip__count">{count}</span>
+              </button>
+            ))}
+          </div>
+        )}
 
         <p className="label" aria-live="polite">
           {narrowed ? `${filtered.length} of ${books.length} books` : `${books.length} books`}

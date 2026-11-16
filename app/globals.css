@@ -417,25 +417,106 @@ button {
   margin-bottom: 2rem;
 }
 
+/* An oval search box with its icon inside and a "/" hint on the right. */
+.search {
+  position: relative;
+  width: 100%;
+  max-width: 26rem;
+}
+
+.search__icon {
+  position: absolute;
+  top: 50%;
+  left: 1rem;
+  width: 1.05rem;
+  height: 1.05rem;
+  color: var(--label);
+  translate: 0 -50%;
+  pointer-events: none;
+}
+
 .search__input {
   width: 100%;
-  max-width: 28rem;
   height: 2.75rem;
-  padding: 0 0.875rem;
+  padding: 0 2.75rem 0 2.6rem;
   font: inherit;
   color: var(--strong);
-  background: var(--bg);
-  border: 1px solid var(--field);
-  border-radius: 6px;
+  background: var(--line);
+  border: 1px solid transparent;
+  border-radius: 9999px;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.search__input::-webkit-search-cancel-button {
+  display: none;
 }
 
 .search__input::placeholder {
   color: var(--label);
 }
 
+.search__input:hover {
+  border-color: var(--field);
+}
+
 .search__input:focus {
+  background: var(--bg);
   border-color: var(--strong);
   outline: none;
+}
+
+.search__key,
+.search__clear {
+  position: absolute;
+  top: 50%;
+  right: 0.75rem;
+  translate: 0 -50%;
+}
+
+.search__key {
+  display: grid;
+  place-items: center;
+  min-width: 1.4rem;
+  height: 1.4rem;
+  padding: 0 0.35rem;
+  font-family: inherit;
+  font-size: 0.75rem;
+  color: var(--label);
+  border: 1px solid var(--field);
+  border-radius: 5px;
+  pointer-events: none;
+}
+
+.search:focus-within .search__key {
+  opacity: 0;
+}
+
+.search__clear {
+  display: grid;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  padding: 0;
+  color: var(--sub);
+  background: none;
+  border: 0;
+  border-radius: 9999px;
+}
+
+.search__clear:hover {
+  color: var(--strong);
+  background: var(--field);
+}
+
+.search__clear svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+@media (hover: none) {
+  .search__key {
+    display: none;
+  }
 }
 
 .chips {
@@ -465,6 +546,22 @@ button {
   color: var(--bg);
   background: var(--strong);
   border-color: var(--strong);
+}
+
+.chip--more {
+  border-style: dashed;
+}
+
+.chips--all {
+  padding-top: 0.125rem;
+}
+
+.chip__x {
+  display: inline-block;
+  width: 0.8rem;
+  height: 0.8rem;
+  margin-left: 0.125rem;
+  vertical-align: -0.1em;
 }
 
 .chip__count {
