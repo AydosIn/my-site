@@ -130,8 +130,9 @@ export function HomeContent({
           </Section>
 
           <Section title="Photos">
-            <Link href="/photos" aria-label="All photos" className="photos-link">
-              <PhotoGrid photos={featuredPhotos} />
+            <PhotoGrid photos={featuredPhotos} />
+            <Link href="/photos" className="more">
+              All {photos.length} photos
             </Link>
           </Section>
         </div>
