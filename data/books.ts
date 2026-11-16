@@ -5,6 +5,8 @@ export type Book = {
   isbn?: string;
   /** Cover image under /public. Without one, the book shows as a plain tile with its title. */
   cover?: string;
+  /** Spine colours for the pile under the covers: [background, text]. Pick them from the cover. */
+  spine?: [string, string];
   takeaway?: string;
   year?: number;
   tags?: string[];
@@ -13,6 +15,7 @@ export type Book = {
 export const books: Book[] = [
   {
     id: "b-2",
+    spine: ["#d8462c", "#f7d774"],
     cover: "/books/b-2.jpg",
     title: "The Alchemist",
     author: "Paulo Coelho",
@@ -22,6 +25,7 @@ export const books: Book[] = [
   },
   {
     id: "b-3",
+    spine: ["#1b1b1b", "#f2f2f2"],
     cover: "/books/b-3.jpg",
     title: "The Kite Runner",
     author: "Khaled Hosseini",
@@ -31,6 +35,7 @@ export const books: Book[] = [
   },
   {
     id: "b-4",
+    spine: ["#dfe3e3", "#2b2b2b"],
     cover: "/books/b-4.jpg",
     title: "1776",
     author: "David McCullough",
@@ -40,6 +45,7 @@ export const books: Book[] = [
   },
   {
     id: "b-5",
+    spine: ["#161616", "#e9e9e9"],
     cover: "/books/b-5.jpg",
     title: "The Picture of Dorian Gray",
     author: "Oscar Wilde",
@@ -49,6 +55,7 @@ export const books: Book[] = [
   },
   {
     id: "b-6",
+    spine: ["#b8432a", "#f0d9a8"],
     cover: "/books/b-6.jpg",
     title: "The Prince",
     author: "Niccolò Machiavelli",
@@ -58,6 +65,7 @@ export const books: Book[] = [
   },
   {
     id: "b-7",
+    spine: ["#3b2f2a", "#e8d5b5"],
     cover: "/books/b-7.jpg",
     title: "Pride and Prejudice",
     author: "Jane Austen",
@@ -67,6 +75,7 @@ export const books: Book[] = [
   },
   {
     id: "b-8",
+    spine: ["#0e0e0e", "#c9a75a"],
     cover: "/books/b-8.jpg",
     title: "Man's Search for Meaning",
     author: "Viktor Frankl",
@@ -76,6 +85,7 @@ export const books: Book[] = [
   },
   {
     id: "b-9",
+    spine: ["#f1efe9", "#8a1f1f"],
     cover: "/books/b-9.jpg",
     title: "A Mathematician's Lament",
     author: "Paul Lockhart",
@@ -85,6 +95,7 @@ export const books: Book[] = [
   },
   {
     id: "b-10",
+    spine: ["#f5f5f3", "#1a1a1a"],
     cover: "/books/b-10.jpg",
     title: "1984",
     author: "George Orwell",
@@ -94,6 +105,7 @@ export const books: Book[] = [
   },
   {
     id: "b-11",
+    spine: ["#fafafa", "#e2582a"],
     cover: "/books/b-11.jpg",
     title: "Freakonomics",
     author: "Steven Levitt & Stephen Dubner",
@@ -103,6 +115,7 @@ export const books: Book[] = [
   },
   {
     id: "b-12",
+    spine: ["#1d2a5a", "#f0e2b6"],
     cover: "/books/b-12.jpg",
     title: "The Great Gatsby",
     author: "F. Scott Fitzgerald",
@@ -112,6 +125,7 @@ export const books: Book[] = [
   },
   {
     id: "b-13",
+    spine: ["#d9772b", "#fff1e0"],
     cover: "/books/b-13.jpg",
     title: "Science and Hope",
     author: "Carl Sagan",
@@ -121,6 +135,7 @@ export const books: Book[] = [
   },
   {
     id: "b-14",
+    spine: ["#9aa0a6", "#111111"],
     title: "Guide to Good Writing",
     author: "Various",
     takeaway: "Clarity is kindness. Write to be understood, not to impress.",
@@ -128,6 +143,7 @@ export const books: Book[] = [
   },
   {
     id: "b-15",
+    spine: ["#e7e1c8", "#1f6f78"],
     cover: "/books/b-15.jpg",
     title: "On Writing Well",
     author: "William Zinsser",
@@ -137,6 +153,7 @@ export const books: Book[] = [
   },
   {
     id: "b-16",
+    spine: ["#e2197a", "#ffffff"],
     cover: "/books/b-16.jpg",
     title: "The Mom Test",
     author: "Rob Fitzpatrick",
@@ -146,6 +163,7 @@ export const books: Book[] = [
   },
   {
     id: "b-17",
+    spine: ["#1d6fb8", "#ffffff"],
     cover: "/books/b-17.jpg",
     title: "The Lean Startup",
     author: "Eric Ries",
